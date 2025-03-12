@@ -1,0 +1,418 @@
+@use "../../utils/mixins" as mixin;
+@use "../../utils/variables" as var;
+
+.header {
+  width: 100%;
+  height: 38px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__logo {
+    @include mixin.on-mobile {
+      margin-right: 10px;
+    }
+
+    @include mixin.on-tablet {
+      margin-right: 15px;
+    }
+
+    @include mixin.on-tablet-2 {
+      margin-right: 20px;
+    }
+
+    @include mixin.on-desktop {
+      margin-right: 20px;
+    }
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__right {
+    @include mixin.on-mobile {
+      display: none;
+    }
+
+    @include mixin.on-tablet {
+      display: none;
+    }
+
+    @include mixin.on-tablet-2 {
+      display: none;
+    }
+
+    @include mixin.on-desktop {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  &__right-mobile {
+    @include mixin.on-mobile {
+      display: flex;
+      flex-direction: row;
+    }
+
+    @include mixin.on-tablet {
+      display: flex;
+      flex-direction: row;
+    }
+
+    @include mixin.on-tablet-2 {
+      display: flex;
+      flex-direction: row;
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__navbar-left {
+    @include mixin.on-mobile {
+      display: none;
+    }
+
+    @include mixin.on-tablet {
+      display: none;
+    }
+
+    @include mixin.on-tablet-2 {
+      display: none;
+    }
+
+    @include mixin.on-desktop {
+      display: flex;
+    }
+  }
+
+  &__button {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.5s ease;
+
+    @include mixin.flex(flex, center, center, false);
+
+    &--open {
+      &::before {
+        content: url("../../images/icons/cross_white_bg.svg");
+
+        @include mixin.sizes(44px, 44px);
+      }
+    }
+
+    @include mixin.on-mobile {
+      &--white-bg {
+        &::before {
+          content: url("../../images/icons/menu_white_bg.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--about {
+        &::before {
+          content: url("../../images/icons/menu_white_bg.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--homeAI {
+        &::before {
+          content: url("../../images/icons/menu_black.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--contact {
+        &::before {
+          content: url("../../images/icons/menu_black.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--login {
+        &::before {
+          content: url("../../images/icons/menu_black.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--profile {
+        &::before {
+          content: url("../../images/icons/menu_black.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--step {
+        &::before {
+          content: url("../../images/icons/menu_black.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+    }
+
+    @include mixin.on-tablet {
+      &--white-bg {
+        &::before {
+          content: url("../../images/icons/menu_white_bg.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--about {
+        &::before {
+          content: url("../../images/icons/menu_black.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--homeAI {
+        &::before {
+          content: url("../../images/icons/menu_black.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--contact {
+        &::before {
+          content: url("../../images/icons/menu_black.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--login {
+        &::before {
+          content: url("../../images/icons/menu_black.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--profile {
+        &::before {
+          content: url("../../images/icons/menu_black.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--step {
+        &::before {
+          content: url("../../images/icons/menu_black.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+    }
+
+    @include mixin.on-tablet-2 {
+      &--white-bg {
+        &::before {
+          content: url("../../images/icons/menu_white_bg.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--about {
+        &::before {
+          content: url("../../images/icons/menu_white_bg.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--homeAI {
+        &::before {
+          content: url("../../images/icons/menu_white_bg.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--contact {
+        &::before {
+          content: url("../../images/icons/menu_white_bg.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--login {
+        &::before {
+          content: url("../../images/icons/menu_white_bg.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--profile {
+        &::before {
+          content: url("../../images/icons/menu_black.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+
+      &--step {
+        &::before {
+          content: url("../../images/icons/menu_white_bg.svg");
+
+          @include mixin.sizes(44px, 44px);
+        }
+      }
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__lang {
+    position: relative;
+    width: max-content;
+    height: 44px;
+    text-transform: uppercase;
+    background-color: transparent;
+    border-radius: 60px;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+
+    @include mixin.flex(flex, center, center, false);
+
+    @include mixin.on-mobile {
+      &--main {
+        color: var.$white;
+        border: 0.5px solid var.$white;
+      }
+
+      &--homeAI {
+        color: var.$black;
+        border: 0.5px solid var.$black;
+      }
+
+      &--about {
+        color: var.$white;
+        border: 0.5px solid var.$white;
+      }
+
+      &--contact {
+        color: var.$black;
+        border: 0.5px solid var.$black;
+      }
+
+      &--login {
+        color: var.$black;
+        border: 0.5px solid var.$black;
+      }
+
+      &--profile {
+        color: var.$black;
+        border: 0.5px solid var.$black;
+      }
+
+      &--step {
+        color: var.$black;
+        border: 0.5px solid var.$black;
+      }
+    }
+
+    @include mixin.on-tablet {
+      &--main {
+        color: var.$white;
+        border: 0.5px solid var.$white;
+      }
+
+      &--homeAI {
+        color: var.$black;
+        border: 0.5px solid var.$black;
+      }
+
+      &--about {
+        color: var.$black;
+        border: 0.5px solid var.$black;
+      }
+
+      &--contact {
+        color: var.$black;
+        border: 0.5px solid var.$black;
+      }
+
+      &--login {
+        color: var.$black;
+        border: 0.5px solid var.$black;
+      }
+
+      &--profile {
+        color: var.$black;
+        border: 0.5px solid var.$black;
+      }
+
+      &--step {
+        color: var.$black;
+        border: 0.5px solid var.$black;
+      }
+    }
+
+    @include mixin.on-tablet-2 {
+      &--main {
+        color: var.$white;
+        border: 0.5px solid var.$white;
+      }
+
+      &--homeAI {
+        color: var.$white;
+        border: 0.5px solid var.$white;
+      }
+
+      &--about {
+        color: var.$white;
+        border: 0.5px solid var.$white;
+      }
+
+      &--contact {
+        color: var.$white;
+        border: 0.5px solid var.$white;
+      }
+
+      &--login {
+        color: var.$white;
+        border: 0.5px solid var.$white;
+      }
+
+      &--profile {
+        color: var.$black;
+        border: 0.5px solid var.$black;
+      }
+
+      &--step {
+        color: var.$white;
+        border: 0.5px solid var.$white;
+      }
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+}

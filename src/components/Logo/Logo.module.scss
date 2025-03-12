@@ -1,0 +1,167 @@
+@use "../../utils/mixins" as mixin;
+@use "../../utils/variables" as var;
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__text {
+    width: max-content;
+    font-family: Poppins, sans-serif;
+    text-align: left;
+    color: var.$white;
+    line-height: 33.6px;
+    text-transform: uppercase;
+    transition: transform 0.5s;
+
+    @include mixin.responsive-property(font-size, 20px, 22px, 22px, 24px);
+    @include mixin.responsive-property(font-weight, 800, 900, 900, 900);
+
+    &--home {
+      @include mixin.on-mobile {
+        color: var.$white;
+
+        &:hover {
+          color: var.$light-gray;
+        }
+      }
+
+      @include mixin.on-tablet {
+        color: var.$white;
+
+        &:hover {
+          color: var.$light-gray;
+        }
+      }
+
+      @include mixin.on-tablet-2 {
+        color: var.$black;
+
+        &:hover {
+          color: var.$dark-gray;
+        }
+      }
+
+      @include mixin.on-desktop {
+        color: var.$white;
+
+        &:hover {
+          color: var.$light-gray;
+        }
+      }
+    }
+
+    &--faq,
+    &--explore,
+    &--volunt,
+    &--wishes,
+    &--donate,
+    &--stories,
+    &--event {
+      @include mixin.on-mobile {
+        color: var.$white;
+
+        &:hover {
+          color: var.$light-gray;
+        }
+      }
+
+      @include mixin.on-tablet {
+        color: var.$white;
+
+        &:hover {
+          color: var.$light-gray;
+        }
+      }
+
+      @include mixin.on-tablet-2 {
+        color: var.$white;
+
+        &:hover {
+          color: var.$light-gray;
+        }
+      }
+
+      @include mixin.on-desktop {
+        color: var.$white;
+
+        &:hover {
+          color: var.$light-gray;
+        }
+      }
+    }
+
+    &--homeAi,
+    &--login,
+    &--contact,
+    &--profile,
+    &--steps {
+      @include mixin.on-mobile {
+        color: var.$black;
+
+        &:hover {
+          color: var.$dark-gray;
+        }
+      }
+
+      @include mixin.on-tablet {
+        color: var.$black;
+
+        &:hover {
+          color: var.$dark-gray;
+        }
+      }
+
+      @include mixin.on-tablet-2 {
+        color: var.$black;
+
+        &:hover {
+          color: var.$dark-gray;
+        }
+      }
+
+      @include mixin.on-desktop {
+        color: var.$black;
+
+        &:hover {
+          color: var.$dark-gray;
+        }
+      }
+    }
+
+    &--about {
+      @include mixin.on-mobile {
+        color: var.$white;
+
+        &:hover {
+          color: var.$light-gray;
+        }
+      }
+
+      @include mixin.on-tablet {
+        color: var.$black;
+
+        &:hover {
+          color: var.$dark-gray;
+        }
+      }
+
+      @include mixin.on-tablet-2 {
+        color: var.$black;
+
+        &:hover {
+          color: var.$dark-gray;
+        }
+      }
+
+      @include mixin.on-desktop {
+        color: var.$white;
+
+        &:hover {
+          color: var.$light-gray;
+        }
+      }
+    }
+  }
+}

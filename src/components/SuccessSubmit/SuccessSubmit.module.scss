@@ -1,0 +1,290 @@
+@use "../../utils/mixins" as mixin;
+@use "../../utils/variables" as var;
+
+.submit {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  &__nav {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    background-image: url("../../images/wallpaper/profile_opport_bg.jpg");
+
+    @include mixin.on-mobile {
+      flex-direction: column;
+      justify-content: flex-end;
+      background-size: cover;
+      background-position: left;
+    }
+
+    @include mixin.on-tablet {
+      flex-direction: column;
+      justify-content: flex-end;
+      background-size: cover;
+      background-position: left;
+    }
+
+    @include mixin.on-tablet-2 {
+      flex-direction: row;
+      justify-content: flex-end;
+      background-size: cover;
+      background-position: left;
+    }
+
+    @include mixin.on-desktop {
+      flex-direction: row;
+      justify-content: flex-end;
+      background-size: cover;
+      background-position: left;
+    }
+  }
+
+  &__right-side {
+    @include mixin.on-mobile {
+      margin-top: 70px;
+      padding: 0 20px 20px;
+      border-radius: 0 0 20px 20px;
+
+      @include mixin.flex(flex, false, space-between, column);
+      @include mixin.sizes(100%, 30vh);
+    }
+
+    @include mixin.on-tablet {
+      margin-top: 86px;
+      padding: 0 24px 24px;
+      border-radius: 0 0 20px 20px;
+
+      @include mixin.flex(flex, false, space-between, column);
+      @include mixin.sizes(100%, 30vh);
+    }
+
+    @include mixin.on-tablet-2 {
+      margin-top: 86px;
+      padding: 0 24px 24px;
+
+      @include mixin.flex(flex, false, space-between, column);
+      @include mixin.sizes(45%, 90vh);
+    }
+
+    @include mixin.on-desktop {
+      margin-top: 86px;
+      padding: 0 24px 24px;
+
+      @include mixin.flex(flex, false, space-between, column);
+      @include mixin.sizes(53%, 90vh);
+    }
+  }
+
+  &__left-side {
+    background-color: var.$black;
+    z-index: 10;
+
+    @include mixin.on-mobile {
+      @include mixin.flex(flex, false, space-between, column);
+
+      padding: 20px;
+      border-radius: 0;
+      height: 70vh;
+      width: 100%;
+    }
+
+    @include mixin.on-tablet {
+      @include mixin.flex(flex, false, space-between, column);
+
+      padding: 24px;
+      border-radius: 0;
+      height: 70vh;
+      width: 100%;
+    }
+
+    @include mixin.on-tablet-2 {
+      @include mixin.flex(flex, false, space-between, column);
+
+      padding: 24px;
+      border-radius: 20px 0 0 20px;
+      height: 100vh;
+      width: 55%;
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.flex(flex, false, space-between, column);
+
+      padding: 40px;
+      border-radius: 20px 0 0 20px;
+      height: 100vh;
+      width: 47%;
+    }
+  }
+
+  &__bllock-top {
+    @include mixin.flex(flex, center, start, row);
+
+    cursor: pointer;
+  }
+
+  &__bllock-bottom {
+    @include mixin.flex(flex, start, start, column);
+
+    @include mixin.on-mobile {
+      margin-bottom: 0;
+    }
+
+    @include mixin.on-tablet {
+      margin-bottom: 0;
+    }
+
+    @include mixin.on-tablet-2 {
+      margin-bottom: 20px;
+    }
+
+    @include mixin.on-desktop {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__img {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__back {
+    @include mixin.button-text-desktop-tablet;
+
+    text-transform: uppercase;
+    color: var.$black;
+    margin-left: 8px;
+  }
+
+  &__title {
+    color: var.$black;
+    text-align: left;
+
+    @include mixin.on-mobile {
+      @include mixin.h2-desktop-tablet;
+
+      margin-bottom: 5px;
+    }
+
+    @include mixin.on-tablet {
+      @include mixin.h2-desktop-tablet;
+
+      margin-bottom: 5px;
+    }
+
+    @include mixin.on-tablet-2 {
+      @include mixin.h2-desktop-tablet;
+
+      margin-bottom: 5px;
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.h1-desktop-tablet;
+    }
+  }
+
+  &__subtitle {
+    color: var.$dark-gray;
+    text-align: left;
+
+    @include mixin.on-mobile {
+      @include mixin.body-text-desktop-tablet;
+    }
+
+    @include mixin.on-tablet {
+      @include mixin.body-text-desktop-tablet;
+    }
+
+    @include mixin.on-tablet-2 {
+      @include mixin.body-text-desktop-tablet;
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.h3-desktop-tablet;
+    }
+  }
+
+  &__content {
+    @include mixin.body-text-desktop-tablet;
+
+    color: var.$light-gray;
+    text-align: justify;
+
+    @include mixin.on-mobile {
+      margin-bottom: 20px;
+    }
+
+    @include mixin.on-tablet {
+      margin-bottom: 20px;
+    }
+
+    @include mixin.on-tablet-2 {
+      margin-top: 80px;
+    }
+
+    @include mixin.on-desktop {
+      margin-top: 100px;
+    }
+  }
+
+  &__buttons {
+    @include mixin.on-mobile {
+      width: 100%;
+
+      @include mixin.flex(flex, center, center, column);
+    }
+
+    @include mixin.on-tablet {
+      width: 100%;
+
+      @include mixin.flex(flex, center, center, column);
+    }
+
+    @include mixin.on-tablet-2 {
+      width: 100%;
+
+      @include mixin.flex(flex, center, center, row);
+    }
+
+    @include mixin.on-desktop {
+      width: 100%;
+
+      @include mixin.flex(flex, center, center, row);
+    }
+  }
+
+  &__button {
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    text-transform: uppercase;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: var.$white;
+    color: var.$black;
+    border: solid 0.5px var.$black;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+    padding: 8px 16px;
+
+    @include mixin.button-text-desktop-tablet;
+    @include mixin.flex(flex, center, center, row);
+
+    &:hover {
+      background-color: var.$light-gray;
+      color: var.$black;
+    }
+
+    &:active {
+      background-color: var.$light-gray;
+      color: var.$black;
+    }
+
+    &--active {
+      background-color: var.$light-gray;
+      color: var.$black;
+    }
+  }
+}

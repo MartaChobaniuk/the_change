@@ -1,0 +1,523 @@
+@use "../../utils/mixins" as mixin;
+@use "../../utils/variables" as var;
+
+.custom-file-label {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  text-align: left;
+  width: 100%;
+  height: 100%;
+  background-color: var.$black;
+  color: var.$grey;
+  cursor: pointer;
+  z-index: 10;
+}
+
+[data-has-file="true"] + .custom-file-label {
+  color: var.$white;
+}
+
+.info {
+  width: 100%;
+  height: 100vh;
+
+  &__error {
+    color: var.$error;
+
+    @include mixin.body-text-desktop-tablet;
+  }
+
+  &__nav {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    background-color: var.$black;
+    color: var.$white;
+
+    @include mixin.on-mobile {
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @include mixin.on-tablet {
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @include mixin.on-tablet-2 {
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @include mixin.on-desktop {
+      flex-direction: column;
+    }
+  }
+
+  &__top {
+    background-image: url("../../images/wallpaper/profile_bg.jpg");
+    background-position: center;
+    color: var.$black;
+    border-radius: 0 0 20px 20px;
+
+    @include mixin.flex(flex, false, flex-end, column);
+
+    @include mixin.on-mobile {
+      position: sticky;
+      top: 0;
+      min-height: 340px;
+      padding: 70px 20px 24px;
+
+      &--scrolled {
+        min-height: 230px;
+        transition: height 0.3s ease;
+      }
+    }
+
+    @include mixin.on-tablet {
+      position: sticky;
+      top: 0;
+      min-height: 300px;
+      padding: 86px 20px 24px;
+      transition: height 0.3s ease;
+
+      &--scrolled {
+        min-height: 240px;
+        transition: height 0.3s ease;
+      }
+    }
+
+    @include mixin.on-tablet-2 {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      min-height: 250px;
+      padding: 86px 20px 24px;
+      transition: height 0.3s ease;
+
+      &--scrolled {
+        min-height: 130px;
+        transition: height 0.3s ease;
+      }
+    }
+
+    @include mixin.on-desktop {
+      min-height: 240px;
+      padding: 86px 24px 24px;
+    }
+  }
+
+  &__bottom {
+    flex: 1 1 auto;
+    overflow: auto;
+    scrollbar-width: none;
+    background-color: var.$black;
+    gap: 15px;
+
+    @include mixin.flex(flex, false, false, column);
+
+    @include mixin.on-mobile {
+      padding: 20px 24px;
+
+      &--scrolled {
+        padding-top: 230px;
+      }
+    }
+
+    @include mixin.on-tablet {
+      padding: 20px 24px;
+      height: max-content;
+    }
+
+    @include mixin.on-tablet-2 {
+      padding: 20px 24px;
+
+      &--scrolled {
+        padding-top: 150px;
+      }
+    }
+
+    @include mixin.on-desktop {
+      padding: 30px 24px;
+    }
+  }
+
+  &__buttons {
+    @include mixin.on-mobile {
+      width: 100%;
+
+      @include mixin.flex(flex, center, center, column);
+    }
+
+    @include mixin.on-tablet {
+      width: 100%;
+
+      @include mixin.flex(flex, center, center, column);
+    }
+
+    @include mixin.on-tablet-2 {
+      width: 100%;
+
+      @include mixin.flex(flex, center, center, row);
+    }
+
+    @include mixin.on-desktop {
+      width: 70%;
+
+      @include mixin.flex(flex, center, center, row);
+    }
+  }
+
+  &__button {
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: transparent;
+    color: var.$black;
+    border: solid 0.5px var.$black;
+    border-radius: 80px;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+    padding: 8px 16px;
+
+    @include mixin.flex(flex, center, center, row);
+
+    &:hover {
+      background-color: var.$black;
+      color: var.$white;
+    }
+
+    &:active {
+      background-color: var.$black;
+      color: var.$white;
+    }
+
+    &--active {
+      background-color: var.$black;
+      color: var.$white;
+    }
+  }
+
+  &__greeting {
+    @include mixin.on-mobile {
+      @include mixin.body-text-desktop-tablet;
+
+      display: block;
+      color: var.$dark-gray;
+      margin-bottom: 10px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+
+      &--scrolled {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+    }
+
+    @include mixin.on-tablet {
+      @include mixin.body-text-desktop-tablet;
+
+      display: block;
+      color: var.$dark-gray;
+      margin-bottom: 10px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+
+      &--scrolled {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+    }
+
+    @include mixin.on-tablet-2 {
+      @include mixin.body-text-desktop-tablet;
+
+      display: block;
+      color: var.$dark-gray;
+      margin-bottom: 10px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+
+      &--scrolled {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.body-text-desktop-tablet;
+
+      display: block;
+      color: var.$dark-gray;
+      margin-bottom: 10px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+  }
+
+  &__title {
+    @include mixin.on-mobile {
+      @include mixin.h2-desktop-tablet;
+
+      display: block;
+      color: var.$dark-gray;
+      margin-bottom: 10px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+
+      &--scrolled {
+        opacity: 0;
+        transition: opasity 0.3s ease;
+      }
+    }
+
+    @include mixin.on-tablet {
+      @include mixin.h2-desktop-tablet;
+
+      display: block;
+      color: var.$dark-gray;
+      margin-bottom: 10px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+
+      &--scrolled {
+        opacity: 0;
+        transition: opasity 0.3s ease;
+      }
+    }
+
+    @include mixin.on-tablet-2 {
+      @include mixin.h1-desktop-tablet;
+
+      display: block;
+      color: var.$dark-gray;
+      margin-bottom: 10px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+
+      &--scrolled {
+        opacity: 0;
+        transition: opasity 0.3s ease;
+      }
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.h1-desktop-tablet;
+
+      display: block;
+      color: var.$dark-gray;
+      margin-bottom: 10px;
+      opacity: 1;
+      will-change: opacity;
+      transition: opacity 0.3s ease;
+    }
+  }
+
+  &__subtitle {
+    @include mixin.on-mobile {
+      @include mixin.h3-desktop-tablet;
+
+      margin-bottom: 10px;
+    }
+
+    @include mixin.on-tablet {
+      @include mixin.h3-desktop-tablet;
+
+      margin-bottom: 10px;
+    }
+
+    @include mixin.on-tablet-2 {
+      @include mixin.h2-desktop-tablet;
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.h2-desktop-tablet;
+    }
+  }
+
+  &__photo-container {
+    @include mixin.on-mobile {
+      width: 300px;
+      height: 300px;
+    }
+
+    @include mixin.on-tablet {
+      width: 300px;
+      height: 300px;
+    }
+
+    @include mixin.on-tablet-2 {
+      width: 300px;
+      height: 230px;
+      margin-right: 40px;
+    }
+
+    @include mixin.on-desktop {
+      width: 300px;
+      height: 240px;
+      margin-right: 40px;
+    }
+  }
+
+  &__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 20px;
+  }
+
+  &__line {
+    height: 0.5px;
+    background-color: var.$light-gray;
+    margin-bottom: 15px;
+
+    @include mixin.on-mobile {
+      width: 100%;
+    }
+
+    @include mixin.on-tablet {
+      width: 100%;
+    }
+
+    @include mixin.on-tablet-2 {
+      width: 100%;
+    }
+
+    @include mixin.on-desktop {
+      width: 400px;
+    }
+  }
+
+  &__input {
+    @include mixin.body-text-desktop-tablet;
+
+    color: var.$light-gray;
+    padding: 10px 8px;
+    cursor: pointer;
+  }
+
+  &__details {
+    box-sizing: border-box;
+    width: 100%;
+
+    @include mixin.on-mobile {
+      height: 580px;
+
+      @include mixin.flex(flex, center, center, column);
+    }
+
+    @include mixin.on-tablet {
+      height: 480px;
+
+      @include mixin.flex(flex, center, center, column);
+    }
+
+    @include mixin.on-tablet-2 {
+      height: 350px;
+
+      @include mixin.flex(flex, center, center, row);
+    }
+
+    @include mixin.on-desktop {
+      height: 400px;
+
+      @include mixin.flex(flex, center, center, row);
+    }
+  }
+
+  &__buttons-bottom {
+    @include mixin.on-mobile {
+      width: 100%;
+
+      @include mixin.flex(flex, center, center, column);
+    }
+
+    @include mixin.on-tablet {
+      width: 100%;
+
+      @include mixin.flex(flex, center, center, row);
+    }
+
+    @include mixin.on-tablet-2 {
+      width: max-content;
+
+      @include mixin.flex(flex, center, flex-end, row);
+    }
+
+    @include mixin.on-desktop {
+      width: max-content;
+
+      @include mixin.flex(flex, center, flex-end, row);
+    }
+  }
+
+  &__button-edit {
+    height: 44px;
+    line-height: 44px;
+    text-transform: uppercase;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: var.$white;
+    color: var.$black;
+    transition: background-color 0.3s ease;
+
+    @include mixin.on-mobile {
+      width: 100%;
+    }
+
+    @include mixin.on-tablet {
+      width: 100%;
+    }
+
+    @include mixin.on-tablet-2 {
+      width: 250px;
+    }
+
+    @include mixin.on-desktop {
+      width: 250px;
+    }
+
+    &:hover {
+      background-color: var.$light-gray;
+    }
+
+    &:active {
+      background-color: var.$light-gray;
+    }
+  }
+
+  &__block {
+    @include mixin.on-mobile {
+      width: 100%;
+
+      @include mixin.flex(flex, start, center, column);
+    }
+
+    @include mixin.on-tablet {
+      width: 100%;
+
+      @include mixin.flex(flex, start, center, column);
+    }
+
+    @include mixin.on-tablet-2 {
+      width: 100%;
+
+      @include mixin.flex(flex, center, space-between, row);
+    }
+
+    @include mixin.on-desktop {
+      width: 100%;
+
+      @include mixin.flex(flex, center, space-between, row);
+    }
+  }
+
+  &__inputs {
+    width: 100%;
+  }
+}

@@ -1,0 +1,290 @@
+@use "../../utils/mixins" as mixin;
+@use "../../utils/variables" as var;
+
+.filters {
+  position: relative;
+  height: 90vh;
+  color: var.$light-gray;
+
+  @include mixin.flex(flex, false, space-between, column);
+
+  @include mixin.on-mobile {
+    margin-top: 70px;
+    padding: 20px;
+  }
+
+  @include mixin.on-tablet {
+    margin-top: 86px;
+    padding: 20px;
+  }
+
+  @include mixin.on-tablet-2 {
+    margin-top: 86px;
+    padding: 0 15px 15px;
+  }
+
+  @include mixin.on-desktop {
+    margin-top: 86px;
+    padding: 0 40px 40px;
+  }
+
+  &__line {
+    width: 100%;
+    height: 0.5px;
+    background-color: var.$light-gray;
+
+    @include mixin.on-mobile {
+      margin-bottom: 10px;
+    }
+
+    @include mixin.on-tablet {
+      margin-bottom: 15px;
+    }
+
+    @include mixin.on-tablet-2 {
+      margin-bottom: 15px;
+    }
+
+    @include mixin.on-desktop {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__underline {
+    display: none;
+
+    &--is-dropdown {
+      display: block;
+      width: 100%;
+      height: 0.5px;
+      background-color: var.$light-gray;
+
+      @include mixin.on-mobile {
+        margin-bottom: 5px;
+      }
+
+      @include mixin.on-desktop {
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  &__name {
+    @include mixin.h4-desktop-tablet;
+
+    cursor: pointer;
+    text-transform: uppercase;
+
+    @include mixin.on-mobile {
+      margin-bottom: 5px;
+    }
+
+    @include mixin.on-desktop {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__group {
+    position: relative;
+    width: 100%;
+  }
+
+  &__dropdown {
+    @include mixin.flex(flex, center, space-between, row);
+
+    width: 100%;
+    cursor: pointer;
+  }
+
+  &__dropdown-button {
+    color: var.$grey;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+
+    @include mixin.flex(flex, center, space-between, row);
+
+    @include mixin.on-mobile {
+      margin-bottom: 5px;
+    }
+
+    @include mixin.on-desktop {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__select {
+    color: var.$grey;
+    opacity: 0.8;
+
+    &--chosen {
+      color: var.$white;
+      opacity: 1;
+    }
+  }
+
+  &__dropdown-img-container {
+    @include mixin.sizes(16px, 16px);
+  }
+
+  &__dropdown-img {
+    @include mixin.sizes(100%, 100%);
+
+    object-fit: cover;
+    z-index: 15;
+  }
+
+  &__dropdown-list {
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 15;
+    background-color: var.$black;
+    padding: 3px;
+    cursor: pointer;
+
+    @include mixin.flex(flex, flex-start, center, column);
+  }
+
+  &__dropdown-item {
+    text-align: left;
+    height: 44px;
+    color: var.$light-gray;
+
+    @include mixin.body-text-desktop-tablet;
+    @include mixin.flex(flex, center, center, column);
+
+    &:hover {
+      color: var.$white;
+      text-decoration: underline;
+    }
+
+    &--active {
+      color: var.$white;
+    }
+  }
+
+  &__dropdown-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__dropdown-checkbox {
+    margin-right: 8px;
+    margin-left: 4px;
+    background-color: var.$black;
+    cursor: pointer;
+  }
+
+  &__buttons {
+    @include mixin.on-mobile {
+      @include mixin.flex(flex, center, center, column);
+
+      width: 100%;
+    }
+
+    @include mixin.on-tablet {
+      @include mixin.flex(flex, center, center, row);
+
+      width: 100%;
+    }
+
+    @include mixin.on-tablet-2 {
+      @include mixin.flex(flex, center, center, column);
+
+      width: 100%;
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.flex(flex, center, center, row);
+
+      width: 100%;
+    }
+  }
+
+  &__button {
+    position: relative;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: var.$black;
+    color: var.$white;
+    border-radius: 20px;
+    border: 1px solid var.$white;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 0;
+      height: 100%;
+      background-color: var.$white;
+      transform: translateY(-50%);
+      z-index: 0;
+      transition: width 0.5s ease;
+    }
+
+    &:hover::before {
+      width: 100%;
+    }
+
+    & > span {
+      position: relative;
+      z-index: 1;
+      color: inherit;
+      transition: color 0.5s ease;
+    }
+
+    &:hover {
+      border-color: var.$white;
+    }
+
+    &:hover > span {
+      color: var.$black;
+    }
+
+    &--active {
+      background-color: var.$white;
+      color: var.$black;
+    }
+  }
+
+  &__toggle-button {
+    @include mixin.flex(flex, center, space-between, row);
+
+    width: 100%;
+    cursor: pointer;
+
+    @include mixin.on-mobile {
+      margin-bottom: 5px;
+    }
+
+    @include mixin.on-desktop {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__calendar {
+    position: absolute;
+    bottom: 100%;
+    z-index: 1000;
+    display: block;
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  &__calendar-img {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+  }
+}

@@ -1,0 +1,272 @@
+@use "../../utils/mixins" as mixin;
+@use "../../utils/variables" as var;
+
+.navbar {
+  width: 100%;
+
+  @include mixin.flex(flex, false, space-between, row);
+
+  &__left {
+    @include mixin.on-mobile {
+      display: none;
+    }
+
+    @include mixin.on-tablet {
+      display: none;
+    }
+
+    @include mixin.on-tablet-2 {
+      display: none;
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.flex(flex, center, center, row);
+    }
+  }
+
+  &__right {
+    @include mixin.flex(flex, center, center, row);
+  }
+
+  &__img {
+    @include mixin.sizes(12px, 12px);
+
+    z-index: 5;
+    margin-right: 6px;
+
+    &--dark {
+      @include mixin.sizes(22px, 22px);
+    }
+  }
+
+  &__profile {
+    position: relative;
+    width: max-content;
+    height: 38px;
+    cursor: pointer;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    background-color: var.$black;
+    color: var.$white;
+
+    @include mixin.flex(flex, center, center, false);
+    @include mixin.responsive-property(border-radius, 60px, 60px, 80px, 80px);
+    @include mixin.responsive-property(padding, 8px, 8px, 8px 16px, 8px 16px);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 0;
+      height: 100%;
+      transform: translateY(-50%);
+      z-index: 0;
+      transition: width 0.5s ease;
+    }
+
+    &:hover::before {
+      width: 100%;
+    }
+
+    &:hover {
+      background: var.$orange-red;
+      color: var.$white;
+    }
+
+    &--active {
+      background: var.$orange-red;
+      color: var.$white;
+    }
+  }
+
+  &__step {
+    position: relative;
+    width: max-content;
+    height: 38px;
+    cursor: pointer;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    background-color: var.$light-gray;
+    color: var.$black;
+
+    @include mixin.flex(flex, center, center, false);
+    @include mixin.responsive-property(border-radius, 60px, 60px, 80px, 80px);
+    @include mixin.responsive-property(padding, 8px, 8px, 8px 16px, 8px 16px);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 0;
+      height: 100%;
+      transform: translateY(-50%);
+      z-index: 0;
+      transition: width 0.5s ease;
+    }
+
+    &:hover::before {
+      width: 100%;
+    }
+
+    &:hover {
+      background: var.$yellow-green;
+      color: var.$black;
+    }
+
+    &--active {
+      background: var.$yellow-green;
+      color: var.$black;
+    }
+  }
+
+  &__name {
+    @include mixin.button-text-desktop-tablet;
+
+    text-transform: uppercase;
+    z-index: 10;
+    transition: color 0.5s;
+  }
+
+  &__item {
+    position: relative;
+    width: max-content;
+    height: 38px;
+    cursor: pointer;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: all 0.5s ease;
+
+    @include mixin.flex(flex, center, center, false);
+    @include mixin.responsive-property(border-radius, 60px, 60px, 80px, 80px);
+    @include mixin.responsive-property(padding, 8px, 8px, 8px 16px, 8px 16px);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 0;
+      height: 100%;
+      transform: translateY(-50%);
+      z-index: 0;
+      transition: width 0.5s ease;
+    }
+
+    &:hover::before {
+      width: 100%;
+    }
+
+    &--active {
+      background: var.$yellow-green;
+    }
+
+    &--dark-bg {
+      @include mixin.on-desktop {
+        background-color: var.$black;
+        color: var.$white;
+
+        &:hover {
+          background: var.$orange-red;
+          color: var.$white;
+        }
+
+        &:active {
+          background: var.$orange-red;
+          color: var.$white;
+        }
+      }
+    }
+
+    &--white-bg {
+      @include mixin.on-desktop {
+        background-color: var.$white;
+        color: var.$black;
+
+        &:hover {
+          background: var.$yellow-green;
+          color: var.$black;
+        }
+
+        &:active {
+          background: var.$yellow-green;
+          color: var.$black;
+        }
+      }
+    }
+  }
+
+  &__lang {
+    position: relative;
+    width: max-content;
+    height: 38px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.5s ease;
+
+    @include mixin.flex(flex, center, center, false);
+    @include mixin.responsive-property(border-radius, 60px, 60px, 80px, 80px);
+    @include mixin.responsive-property(padding, 8px, 8px, 8px 16px, 8px 16px);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 0;
+      height: 100%;
+      transform: translateY(-50%);
+      z-index: 0;
+      transition: width 0.5s ease;
+    }
+
+    &:hover::before {
+      width: 100%;
+    }
+
+    &--dark-bg {
+      @include mixin.on-desktop {
+        background-color: transparent;
+        color: var.$black;
+        border: 0.5px solid var.$black;
+
+        &:hover {
+          background-color: var.$black;
+          color: var.$white;
+        }
+
+        &:active {
+          background-color: var.$dark-gray;
+          color: var.$white;
+        }
+      }
+    }
+
+    &--transparent-bg {
+      @include mixin.on-desktop {
+        background-color: transparent;
+        color: var.$white;
+        border: 0.5px solid var.$white;
+
+        &:hover {
+          background-color: var.$white;
+          color: var.$black;
+        }
+
+        &:active {
+          background-color: var.$white;
+          color: var.$black;
+        }
+      }
+    }
+  }
+
+  &__lang-name {
+    text-transform: uppercase;
+    z-index: 5;
+    transition: all 0.5s ease;
+  }
+}

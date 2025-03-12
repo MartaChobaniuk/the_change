@@ -1,0 +1,251 @@
+@use "../../utils/mixins" as mixin;
+@use "../../utils/variables" as var;
+
+.navbar {
+  width: 100%;
+
+  @include mixin.flex(flex, false, space-between, row);
+
+  &__left {
+    @include mixin.on-mobile {
+      display: none;
+    }
+
+    @include mixin.on-tablet {
+      display: none;
+    }
+
+    @include mixin.on-tablet-2 {
+      display: none;
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.flex(flex, center, center, row);
+    }
+  }
+
+  &__right {
+    @include mixin.flex(flex, center, center, row);
+  }
+
+  &__item {
+    position: relative;
+    width: max-content;
+    height: 38px;
+    border-radius: 80px;
+    padding: 8px 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: all 0.5s ease;
+
+    @include mixin.flex(flex, center, center, false);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 0;
+      height: 100%;
+      transform: translateY(-50%);
+      z-index: 0;
+      transition: width 0.5s ease;
+    }
+
+    &:hover::before {
+      width: 100%;
+    }
+
+    &--home {
+      @include mixin.on-desktop {
+        background-color: transparent;
+        border: 0.5px solid var.$white;
+        color: var.$white;
+
+        &--active {
+          background: var.$orange-red;
+          transition: all 0.5s ease;
+        }
+
+        &:hover {
+          background-color: var.$white;
+          color: var.$black;
+        }
+      }
+    }
+
+    &--homeAi {
+      @include mixin.on-desktop {
+        background-color: transparent;
+        border: 0.5px solid var.$black;
+        color: var.$black;
+
+        &--active {
+          background: var.$yellow-green;
+          color: var.$black;
+        }
+
+        &:hover {
+          background-color: var.$black;
+          color: var.$white;
+        }
+
+        &:active {
+          background-color: var.$dark-gray;
+          color: var.$white;
+        }
+      }
+    }
+
+    &--sign {
+      @include mixin.on-desktop {
+        background-color: transparent;
+        border: 0.5px solid var.$black;
+        color: var.$black;
+
+        &:hover {
+          background-color: var.$black;
+          color: var.$white;
+        }
+
+        &:active {
+          background-color: var.$dark-gray;
+          color: var.$white;
+        }
+      }
+    }
+
+    &--login,
+    &--profile {
+      @include mixin.on-desktop {
+        background-color: transparent;
+        border: 0.5px solid var.$black;
+        color: var.$black;
+
+        &:hover {
+          background-color: var.$black;
+          color: var.$white;
+        }
+
+        &:active {
+          background-color: var.$dark-gray;
+          color: var.$white;
+        }
+      }
+    }
+
+    &--about,
+    &--stories,
+    &--event {
+      @include mixin.on-desktop {
+        background-color: transparent;
+        border: 0.5px solid var.$white;
+        color: var.$white;
+
+        &--active {
+          background: var.$orange-red;
+          transition: all 0.5s ease;
+
+          &:hover {
+            background: var.$white;
+            color: var.$black;
+          }
+        }
+
+        &:hover {
+          background-color: var.$white;
+          color: var.$black;
+        }
+
+        &:active {
+          background-color: var.$light-gray;
+          color: var.$black;
+        }
+      }
+    }
+
+    &--faq {
+      background-color: transparent;
+      border: 0.5px solid var.$white;
+      color: var.$white;
+
+      &--active {
+        background: var.$orange-red;
+        transition: all 0.5s ease;
+
+        &:hover {
+          background: var.$white;
+          color: var.$black;
+        }
+      }
+
+      &:hover {
+        background-color: var.$white;
+        color: var.$black;
+      }
+
+      &:active {
+        background-color: var.$light-gray;
+        color: var.$black;
+      }
+    }
+
+    &--contact {
+      @include mixin.on-desktop {
+        background-color: transparent;
+        border: 0.5px solid var.$black;
+        color: var.$black;
+
+        &--active {
+          background: var.$yellow-green;
+          color: var.$black;
+        }
+
+        &:hover {
+          background: var.$black;
+          color: var.$white;
+        }
+      }
+    }
+
+    &--explore,
+    &--volunt,
+    &--wishes,
+    &--donate {
+      @include mixin.on-desktop {
+        background-color: transparent;
+        border: 0.5px solid var.$white;
+        color: var.$white;
+
+        &--active {
+          background: var.$orange-red;
+          transition: all 0.5s ease;
+
+          &:hover {
+            background: var.$white;
+            color: var.$black;
+          }
+        }
+
+        &:hover {
+          background-color: var.$white;
+          color: var.$black;
+        }
+
+        &:active {
+          background-color: var.$light-gray;
+          color: var.$black;
+        }
+      }
+    }
+  }
+
+  &__name {
+    @include mixin.button-text-desktop-tablet;
+
+    text-transform: uppercase;
+    z-index: 10;
+    transition: color 0.3s;
+  }
+}

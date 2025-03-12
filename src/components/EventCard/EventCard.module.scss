@@ -1,0 +1,65 @@
+@use "../../utils/mixins" as mixin;
+@use "../../utils/variables" as var;
+
+.event {
+  @include mixin.flex(flex, false, false, column);
+
+  box-sizing: border-box;
+  gap: 5px;
+  margin-bottom: 15px;
+  width: 100%;
+  height: 320px;
+
+  &__container-img {
+    @include mixin.flex(flex, center, center, false);
+
+    position: relative;
+    width: 100%;
+    height: 220px;
+  }
+
+  &__help-type {
+    @include mixin.small-text-desktop-tablet;
+
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var.$dark-gray;
+    padding: 4px 8px;
+    border-radius: 4px;
+    z-index: 10;
+
+    &--yellow {
+      background: var.$yellow-green;
+    }
+
+    &--blue {
+      background: var.$blue-purple;
+    }
+  }
+
+  &__img {
+    @include mixin.sizes(100%, 100%);
+
+    border-radius: 15px 15px 0 0;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &__title {
+    @include mixin.h4-desktop-tablet;
+
+    color: var.$black;
+    text-transform: uppercase;
+    width: 100%;
+    height: 36px;
+  }
+
+  &__types,
+  &__details {
+    @include mixin.flex(flex, false, false, row);
+    @include mixin.small-text-desktop-tablet;
+
+    color: var.$dark-gray;
+  }
+}

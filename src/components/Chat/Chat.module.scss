@@ -1,0 +1,149 @@
+@use "../../utils/mixins" as mixin;
+@use "../../utils/variables" as var;
+
+.chat {
+  &__messages {
+    width: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+
+    @include mixin.on-mobile {
+      height: 30vh;
+    }
+
+    @include mixin.on-tablet {
+      height: 30vh;
+    }
+
+    @include mixin.on-tablet-2 {
+      height: 35vh;
+    }
+
+    @include mixin.on-desktop {
+      height: 40vh;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__message {
+    @include mixin.body-text-desktop-tablet;
+
+    padding: 8px 12px;
+    border: 1px solid var.$light-gray;
+    border-radius: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+
+    &--assistant {
+      color: var.$dark-gray;
+      align-self: flex-start;
+      background-color: var.$light-gray;
+
+      a {
+        color: var.$purple;
+        text-decoration: underline;
+
+        &:hover {
+          color: darkblue;
+        }
+      }
+    }
+
+    &--user {
+      color: var.$dark-gray;
+      align-self: flex-end;
+      background-color: var.$light-gray;
+    }
+  }
+
+  &__textarea {
+    width: 100%;
+  }
+
+  &__line {
+    width: 100%;
+    height: 1px;
+    background-color: var.$grey;
+    margin-bottom: 10px;
+  }
+
+  &__button-shell {
+    @include mixin.on-mobile {
+      @include mixin.flex(flex, center, center, false);
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.flex(flex, center, flex-end, false);
+    }
+  }
+
+  &__button {
+    position: relative;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    background-color: var.$grey;
+    color: var.$black;
+    border-radius: 12px;
+    border: 1px solid var.$black;
+    cursor: pointer;
+    transition: border-color 1s ease;
+
+    @include mixin.flex(flex, center, center, false);
+
+    @include mixin.on-mobile {
+      width: 100%;
+    }
+
+    @include mixin.on-desktop {
+      width: 300px;
+    }
+
+    &--disabled {
+      background-color: var.$grey;
+      pointer-events: none;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 0;
+      background-color: var.$white;
+      transform: translateY(-50%);
+      z-index: 0;
+      transition: height 0.5s ease;
+    }
+
+    &:hover::before {
+      height: 100%;
+    }
+
+    & > span {
+      position: relative;
+      z-index: 1;
+      color: inherit;
+      transition: color 0.5s ease;
+    }
+
+    &:hover {
+      border-color: var.$light-gray;
+    }
+
+    &:hover > span {
+      color: var.$black;
+    }
+  }
+}

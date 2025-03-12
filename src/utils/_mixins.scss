@@ -1,0 +1,169 @@
+@mixin on-mobile {
+  @media (min-width: 320px) {
+    @content;
+  }
+}
+
+@mixin on-tablet {
+  @media (min-width: 640px) {
+    @content;
+  }
+}
+
+@mixin on-tablet-2 {
+  @media (min-width: 907px) {
+    @content;
+  }
+}
+
+@mixin on-desktop {
+  @media (min-width: 1350px) {
+    @content;
+  }
+}
+
+@mixin grid {
+  display: grid;
+  column-gap: 16px;
+
+  @include on-mobile {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include on-tablet {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  @include on-desktop {
+    grid-template-columns: repeat(24, 1fr);
+  }
+}
+
+@mixin flex($type: flex, $align: false, $justify: false, $direction: false) {
+  display: $type;
+
+  @if $align {
+    align-items: $align;
+  }
+
+  @if $justify {
+    justify-content: $justify;
+  }
+
+  @if $direction {
+    flex-direction: $direction;
+  }
+}
+
+@mixin sizes($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin hover-effect {
+  transform: scale(110%);
+}
+
+@mixin responsive-property($property, $mobile, $tablet, $tablet-2, $desktop) {
+  #{$property}: $mobile;
+
+  @include on-tablet {
+    #{$property}: $tablet;
+  }
+
+  @include on-tablet-2 {
+    #{$property}: $tablet-2;
+  }
+
+  @include on-desktop {
+    #{$property}: $desktop;
+  }
+}
+
+@mixin h1-desktop-tablet {
+  font-weight: 500;
+  font-size: 64px;
+  line-height: 110%;
+}
+
+@mixin h1-mobile {
+  font-weight: 500;
+  font-size: 54px;
+  line-height: 100%;
+}
+
+@mixin h2-desktop-tablet {
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 110%;
+}
+
+@mixin h2-mobile {
+  font-weight: 500;
+  font-size: 33px;
+  line-height: 100%;
+}
+
+@mixin h3-desktop-tablet {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 110%;
+  letter-spacing: 0;
+}
+
+@mixin h3-mobile {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 110%;
+  letter-spacing: 0;
+}
+
+@mixin h4-desktop-tablet {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 110%;
+  letter-spacing: 0;
+}
+
+@mixin uppercase-desktop-tablet {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  text-transform: uppercase;
+}
+
+@mixin button-text-desktop-tablet {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0;
+}
+
+@mixin body-text-desktop-tablet {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0;
+}
+
+@mixin small-text-desktop-tablet {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+  letter-spacing: 0;
+}
+
+@mixin bold-small-text-desktop-tablet {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 140%;
+  letter-spacing: 0;
+}
+
+@mixin link-text-desktop-tablet {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0;
+  text-decoration: underline;
+}

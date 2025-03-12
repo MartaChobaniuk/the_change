@@ -1,0 +1,212 @@
+@use "../../utils/mixins" as mixin;
+@use "../../utils/variables" as var;
+
+.success {
+  width: 100%;
+  color: var.$success;
+
+  @include mixin.button-text-desktop-tablet;
+}
+
+.error {
+  width: 100%;
+  color: var.$error;
+
+  @include mixin.button-text-desktop-tablet;
+}
+
+.donation-three {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  &__title {
+    @include mixin.body-text-desktop-tablet;
+
+    color: var.$light-gray;
+
+    @include mixin.on-mobile {
+      margin-bottom: 40px;
+    }
+
+    @include mixin.on-tablet {
+      margin-bottom: 50px;
+    }
+
+    @include mixin.on-tablet-2 {
+      margin-bottom: 50px;
+    }
+
+    @include mixin.on-desktop {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__input-block {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 4px;
+  }
+
+  &__input {
+    width: 100%;
+    height: 44px;
+    color: var.$light-gray;
+
+    @include mixin.button-text-desktop-tablet;
+
+    &:placeholder-shown {
+      color: var.$grey;
+    }
+  }
+
+  &__inputs-block {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__input--part {
+    width: 45%;
+    height: 44px;
+    color: var.$light-gray;
+
+    @include mixin.button-text-desktop-tablet;
+
+    &:placeholder-shown {
+      color: var.$grey;
+    }
+  }
+
+  &__line {
+    width: 100%;
+    height: 1px;
+    background-color: var.$grey;
+  }
+
+  &__lines {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__line-small {
+    width: 45%;
+    height: 1px;
+    background-color: var.$grey;
+  }
+
+  &__buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
+
+  &__button {
+    width: 50%;
+    padding: 8px 16px;
+    height: 44px;
+    line-height: 44px;
+    background-color: transparent;
+    border-radius: 80px;
+    border: 0.5px solid var.$white;
+    color: var.$white;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    @include mixin.flex(flex, center, center, false);
+
+    &:hover {
+      background-color: var.$orange-red;
+      color: var.$white;
+    }
+
+    &--active {
+      background-color: var.$white;
+      color: var.$black;
+    }
+  }
+
+  &__main-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__button-back {
+    position: relative;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: var.$black;
+    color: var.$white;
+    border: 0.5px solid var.$white;
+    border-radius: 12px;
+    cursor: pointer;
+
+    @include mixin.flex(flex, center, center, false);
+
+    &:hover {
+      background-color: var.$dark-gray;
+      color: var.$white;
+    }
+  }
+
+  &__button-next {
+    position: relative;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: var.$grey;
+    color: var.$black;
+    border: 0.5px solid var.$black;
+    border-radius: 12px;
+    cursor: pointer;
+
+    @include mixin.flex(flex, center, center, false);
+
+    &:hover {
+      background-color: var.$light-gray;
+      color: var.$black;
+    }
+  }
+
+  &__errors {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 2%;
+  }
+
+  &__error-block {
+    opacity: 0;
+    width: 45%;
+
+    &--visible {
+      opacity: 1;
+    }
+  }
+
+  &__error-part {
+    width: 100%;
+    color: var.$error;
+
+    @include mixin.button-text-desktop-tablet;
+  }
+
+  &__error {
+    color: var.$error;
+
+    @include mixin.button-text-desktop-tablet;
+  }
+}

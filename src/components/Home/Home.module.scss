@@ -1,0 +1,623 @@
+@use "../../utils/mixins" as mixin;
+@use "../../utils/variables" as var;
+
+.home {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+
+  &__nav {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    background-image: url("../../images/wallpaper/background.jpg");
+    color: var.$white;
+
+    @include mixin.on-mobile {
+      flex-direction: column;
+      background-position: center;
+      background-size: cover;
+    }
+
+    @include mixin.on-tablet {
+      flex-direction: column;
+      background-position: center;
+      background-size: cover;
+    }
+
+    @include mixin.on-tablet-2 {
+      flex-direction: row-reverse;
+      background-position: left;
+      background-size: 53% 100%;
+    }
+
+    @include mixin.on-desktop {
+      flex-direction: row;
+      background-position: right;
+      background-size: 60% 100%;
+    }
+  }
+
+  &__left-side {
+    @include mixin.on-mobile {
+      display: none;
+    }
+
+    @include mixin.on-tablet {
+      background-color: var.$black;
+      position: relative;
+      z-index: 8;
+      height: 80vh;
+      border-radius: 0 0 20px 20px;
+      padding: 20px;
+
+      @include mixin.flex(flex, false, space-between, column);
+    }
+
+    @include mixin.on-tablet-2 {
+      background-color: var.$black;
+      position: relative;
+      z-index: 8;
+      width: 50%;
+      height: 100vh;
+      border-radius: 20px 0 0 20px;
+      padding: 24px;
+
+      @include mixin.flex(flex, false, space-between, column);
+    }
+
+    @include mixin.on-desktop {
+      background-color: var.$black;
+      position: relative;
+      width: 53%;
+      height: 100vh;
+      border-radius: 0 20px 20px 0;
+      padding: 24px;
+
+      @include mixin.flex(flex, false, space-between, column);
+    }
+  }
+
+  &__right-side {
+    @include mixin.on-mobile {
+      display: none;
+    }
+
+    @include mixin.on-tablet {
+      display: flex;
+      height: 20vh;
+    }
+
+    @include mixin.on-tablet-2 {
+      width: 50%;
+      height: 100vh;
+
+      @include mixin.flex(flex, false, space-between, column);
+    }
+
+    @include mixin.on-desktop {
+      width: 47%;
+      height: 100vh;
+
+      @include mixin.flex(flex, false, space-between, column);
+    }
+  }
+
+  &__content-left {
+    @include mixin.on-tablet {
+      margin-top: 62px;
+      height: 60vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    @include mixin.on-tablet-2 {
+      margin-top: 62px;
+      height: 75vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    @include mixin.on-desktop {
+      max-width: 600px;
+      flex-grow: 1;
+      margin-top: 100px;
+    }
+  }
+
+  &__title {
+    @include mixin.h1-desktop-tablet;
+
+    margin-bottom: 10px;
+    color: var.$white;
+  }
+
+  &__text {
+    @include mixin.body-text-desktop-tablet;
+
+    text-align: left;
+    color: var.$light-gray;
+  }
+
+  &__question-left {
+    @include mixin.on-tablet {
+      @include mixin.h3-desktop-tablet;
+
+      margin-bottom: 10px;
+      margin-top: 10px;
+      color: var.$white;
+    }
+
+    @include mixin.on-tablet-2 {
+      @include mixin.h3-desktop-tablet;
+
+      margin-bottom: 10px;
+      color: var.$white;
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.h3-desktop-tablet;
+
+      margin-bottom: 10px;
+      color: var.$white;
+    }
+  }
+
+  &__buttons {
+    @include mixin.on-tablet {
+      @include mixin.flex(flex, center, flex-start, row);
+
+      width: 100%;
+    }
+
+    @include mixin.on-tablet-2 {
+      @include mixin.flex(flex, center, flex-start, row);
+
+      width: 100%;
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.flex(flex, center, flex-start, row);
+
+      width: 100%;
+    }
+  }
+
+  &__button {
+    position: relative;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: var.$light-gray;
+    color: var.$black;
+    border-radius: 12px;
+    border: 1px solid var.$black;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 1s ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 0;
+      background-color: var.$black;
+      transform: translateY(-50%);
+      z-index: 0;
+      transition: height 0.5s ease;
+    }
+
+    &:hover::before {
+      height: 100%;
+    }
+
+    & > span {
+      position: relative;
+      z-index: 1;
+      color: inherit;
+      transition: color 0.5s ease;
+    }
+
+    &:hover {
+      border-color: var.$light-gray;
+    }
+
+    &:hover > span {
+      color: var.$light-gray;
+    }
+  }
+
+  &__content-right {
+    @include mixin.on-tablet {
+      display: none;
+    }
+
+    @include mixin.on-tablet-2 {
+      display: flex;
+      flex-grow: 1;
+    }
+
+    @include mixin.on-desktop {
+      display: flex;
+      flex-grow: 1;
+    }
+  }
+
+  &__footer-right {
+    width: 100%;
+    background-color: transparent;
+    color: var.$black;
+    backdrop-filter: blur(34px);
+
+    @include mixin.flex(flex, center, space-between, row);
+
+    @include mixin.on-tablet {
+      padding: 16px;
+      height: 20vh;
+    }
+
+    @include mixin.on-tablet-2 {
+      width: 100%;
+      height: 140px;
+      background-color: transparent;
+      color: var.$black;
+      backdrop-filter: blur(34px);
+      padding: 20px;
+
+      @include mixin.flex(flex, center, space-between, row);
+    }
+
+    @include mixin.on-desktop {
+      height: 192px;
+      background-color: transparent;
+      color: var.$black;
+      backdrop-filter: blur(34px);
+      padding: 40px;
+
+      @include mixin.flex(flex, center, space-between, row);
+    }
+  }
+
+  &__arrow-button {
+    @include mixin.on-tablet {
+      border: solid 0.5px var.$black;
+      border-radius: 120px;
+      transition: all 0.5s;
+      margin-right: 20px;
+      cursor: pointer;
+
+      @include mixin.sizes(120px, 64px);
+      @include mixin.flex(flex, center, center, false);
+
+      &:hover {
+        transform: translateX(25px);
+      }
+    }
+
+    @include mixin.on-tablet-2 {
+      border: solid 0.5px var.$black;
+      border-radius: 120px;
+      transition: all 0.5s;
+      margin-right: 20px;
+      cursor: pointer;
+
+      @include mixin.sizes(120px, 64px);
+      @include mixin.flex(flex, center, center, false);
+
+      &:hover {
+        transform: translateX(25px);
+      }
+    }
+
+    @include mixin.on-desktop {
+      border: solid 0.5px var.$black;
+      border-radius: 120px;
+      transition: all 0.5s;
+      margin-right: 20px;
+      cursor: pointer;
+
+      @include mixin.sizes(120px, 64px);
+      @include mixin.flex(flex, center, center, false);
+
+      &:hover {
+        transform: translateX(25px);
+      }
+    }
+  }
+
+  &__img {
+    @include mixin.on-desktop {
+      padding: 25px;
+    }
+  }
+
+  &__question-right {
+    @include mixin.on-tablet {
+      @include mixin.h3-desktop-tablet;
+    }
+
+    @include mixin.on-tablet-2 {
+      @include mixin.h3-desktop-tablet;
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.h3-desktop-tablet;
+    }
+  }
+
+  &__left-mobile {
+    @include mixin.on-mobile {
+      background-color: var.$black;
+      position: relative;
+      z-index: 8;
+      height: 95vh;
+      border-radius: 0 0 20px 20px;
+      padding: 20px;
+      transition: height 0.5s ease;
+
+      @include mixin.flex(flex, false, false, column);
+
+      &--scrolled {
+        height: 140px;
+      }
+    }
+
+    @include mixin.on-tablet {
+      display: none;
+    }
+
+    @include mixin.on-tablet-2 {
+      display: none;
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__mobile-content-left {
+    margin-top: 54px;
+    height: 70vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  &__mobile-title {
+    @include mixin.on-mobile {
+      @include mixin.h1-desktop-tablet;
+
+      display: block;
+      margin-bottom: 10px;
+
+      &--scrolled {
+        display: none;
+      }
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__mobile-text {
+    @include mixin.on-mobile {
+      @include mixin.body-text-desktop-tablet;
+
+      display: block;
+
+      &--scrolled {
+        display: none;
+      }
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__collaps-line {
+    @include mixin.on-mobile {
+      @include mixin.sizes(100px, 3px);
+
+      background: var.$white;
+      margin: 0 auto;
+      border-radius: 5px;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+    }
+
+    @include mixin.on-tablet {
+      display: none;
+    }
+
+    @include mixin.on-tablet-2 {
+      display: none;
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__right-mobile {
+    @include mixin.on-mobile {
+      height: 20vh;
+    }
+
+    @include mixin.on-tablet {
+      display: none;
+    }
+
+    @include mixin.on-tablet-2 {
+      display: none;
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__mobile-footer-right {
+    @include mixin.on-mobile {
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      background-color: transparent;
+      backdrop-filter: blur(34px);
+      color: var.$black;
+      padding: 20px;
+      height: 120px;
+
+      @include mixin.flex(flex, false, center, column);
+
+      &--scrolled {
+        height: 210px;
+        border-radius: 20px 20px 0 0;
+      }
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__mobile-question-left {
+    @include mixin.on-mobile {
+      @include mixin.h3-desktop-tablet;
+
+      text-align: left;
+      color: var.$black;
+      cursor: pointer;
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__mobile-question-right {
+    @include mixin.on-mobile {
+      @include mixin.h3-desktop-tablet;
+
+      text-align: left;
+      margin-bottom: 8px;
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__mobile-arrow-button {
+    @include mixin.on-mobile {
+      border: solid 0.5px var.$black;
+      border-radius: 120px;
+      transition: all 0.5s;
+      cursor: pointer;
+
+      @include mixin.sizes(100px, 54px);
+      @include mixin.flex(flex, center, center, false);
+
+      &:hover {
+        transform: translateX(25px);
+      }
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__mobile-content-right {
+    @include mixin.on-mobile {
+      display: none;
+
+      &--scrolled {
+        width: 100%;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 16px;
+      }
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__mobile-buttons {
+    @include mixin.on-mobile {
+      @include mixin.flex(flex, center, center, column);
+
+      width: 100%;
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+  /* stylelint-disable-next-line no-descending-specificity */
+  &__mobile-button {
+    position: relative;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: var.$black;
+    color: var.$white;
+    border-radius: 12px;
+    border: 1px solid var.$black;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 1s ease;
+
+    & > span {
+      position: relative;
+      z-index: 1;
+      color: inherit;
+      transition: color 0.5s ease;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 0;
+      background-color: var.$white;
+      transform: translateY(-50%);
+      z-index: 0;
+      transition: height 0.5s ease;
+    }
+
+    &:hover::before {
+      height: 100%;
+    }
+
+    &:hover {
+      border-color: var.$black;
+    }
+
+    &:hover > span {
+      color: var.$black;
+    }
+  }
+}
