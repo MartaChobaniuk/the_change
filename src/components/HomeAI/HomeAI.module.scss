@@ -179,8 +179,22 @@
     cursor: pointer;
 
     @include mixin.flex(flex, center, center, false);
-    @include mixin.responsive-property(width, 100px, 120px, 120px, 120px);
-    @include mixin.responsive-property(height, 54px, 54px, 64px, 64px);
+
+    @include mixin.on-mobile {
+      @include mixin.sizes(100px, 54px);
+    }
+
+    @include mixin.on-tablet {
+      @include mixin.sizes(120px, 54px);
+    }
+
+    @include mixin.on-tablet-2 {
+      @include mixin.sizes(120px, 64px);
+    }
+
+    @include mixin.on-desktop {
+      @include mixin.sizes(120px, 64px);
+    }
 
     &:hover {
       transform: translateX(-25px);
@@ -221,10 +235,9 @@
   }
 
   &__title {
-    @include mixin.h2-desktop-tablet;
-    @include mixin.responsive-property(margin-bottom, 10px, 10px, 10px, 20px);
-
     text-align: left;
+
+    @include mixin.h2-desktop-tablet;
 
     @include mixin.on-mobile {
       display: none;
@@ -236,10 +249,12 @@
 
     @include mixin.on-tablet-2 {
       display: block;
+      margin-bottom: 10px;
     }
 
     @include mixin.on-desktop {
       display: block;
+      margin-bottom: 20px;
     }
   }
 
@@ -247,7 +262,22 @@
     text-align: left;
 
     @include mixin.body-text-desktop-tablet;
-    @include mixin.responsive-property(margin-bottom, 10px, 10px, 10px, 20px);
+
+    @include mixin.on-mobile {
+      margin-bottom: 10px;
+    }
+
+    @include mixin.on-tablet {
+      margin-bottom: 10px;
+    }
+
+    @include mixin.on-tablet-2 {
+      margin-bottom: 10px;
+    }
+
+    @include mixin.on-desktop {
+      margin-bottom: 20px;
+    }
   }
 
   &__question-right {
