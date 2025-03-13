@@ -1,5 +1,5 @@
 {
-  "homepage": "the_change",
+  "homepage": "/",
   "name": "the_change",
   "version": "0.1.0",
   "dependencies": {
@@ -30,7 +30,6 @@
     "@types/react-transition-group": "^4.4.10",
     "@typescript-eslint/parser": "^7.16.0",
     "@vitejs/plugin-react": "^4.3.1",
-    "cypress": "^13.13.0",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-config-prettier": "^9.1.0",
@@ -56,7 +55,7 @@
     "format": "prettier --write './src/**/*.{ts,tsx}'",
     "lint": "npm run style-format && npm run format && npm run lint-js && npm run lint-css",
     "update": "mate-scripts update",
-    "postinstall": "npm run update && cypress verify",
+    "postinstall": "npm run update",
     "predeploy": "npm run build",
     "deploy": "mate-scripts deploy"
   },
@@ -77,8 +76,6 @@
     "projectType": "reactTypescript",
     "nodejsMajorVersion": "20",
     "tests": {
-      "_comment": "Add `cypressComponents: true` to enable component tests",
-      "cypress": true
     }
   }
 }

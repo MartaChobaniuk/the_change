@@ -220,7 +220,10 @@ export const StepOne = () => {
                     {stepOneData.organizerType || 'Organizer Type'}
                   </span>
                 </button>
-                <div className={styles['one__dropdown-img-container']}>
+                <div
+                  onClick={() => setOpenDropdown(!openDropdown)}
+                  className={styles['one__dropdown-img-container']}
+                >
                   <img
                     className={styles['one__dropdown-img']}
                     src={openDropdown ? arrow_up : arrow_down}

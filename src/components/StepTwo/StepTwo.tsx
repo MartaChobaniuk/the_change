@@ -117,16 +117,16 @@ export const StepTwo = () => {
     }
 
     return '0 hours';
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     const timeDemandsText = calculateTimeDemands();
 
     setStepTwoData(prevState => ({
       ...prevState,
       timeDemands: timeDemandsText,
     }));
-}, [stepTwoData.startingDate, stepTwoData.endingDate]);
+  }, [stepTwoData.startingDate, stepTwoData.endingDate]);
 
 
   const toggleStartPeriod = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -445,7 +445,13 @@ useEffect(() => {
                         : 'Category'}
                     </span>
                   </button>
-                  <div className={styles['two__dropdown-img-container']}>
+                  <div
+                    className={styles['two__dropdown-img-container']}
+                    onClick={e => {
+                      e.preventDefault();
+                      toggleDropdown('categoryId');
+                    }}
+                  >
                     <img
                       className={styles['two__dropdown-img']}
                       src={dropdownStates.categoryId ? arrow_up : arrow_down}
@@ -504,7 +510,13 @@ useEffect(() => {
                       {selectedOptions.opportunityType || 'Opportunity Type'}
                     </span>
                   </button>
-                  <div className={styles['two__dropdown-img-container']}>
+                  <div
+                    className={styles['two__dropdown-img-container']}
+                    onClick={e => {
+                      e.preventDefault();
+                      toggleDropdown('opportunityType');
+                    }}
+                  >
                     <img
                       className={styles['two__dropdown-img']}
                       src={
@@ -586,7 +598,13 @@ useEffect(() => {
                       {selectedOptions.assistanceType || 'Assistance Type'}
                     </span>
                   </button>
-                  <div className={styles['two__dropdown-img-container']}>
+                  <div
+                    className={styles['two__dropdown-img-container']}
+                    onClick={e => {
+                      e.preventDefault();
+                      toggleDropdown('assistanceType');
+                    }}
+                  >
                     <img
                       className={styles['two__dropdown-img']}
                       src={
@@ -685,7 +703,13 @@ useEffect(() => {
                       {selectedOptions.region || 'Region'}
                     </span>
                   </button>
-                  <div className={styles['two__dropdown-img-container']}>
+                  <div
+                    className={styles['two__dropdown-img-container']}
+                    onClick={e => {
+                      e.preventDefault();
+                      toggleDropdown('region');
+                    }}
+                  >
                     <img
                       className={styles['two__dropdown-img']}
                       src={dropdownStates.region ? arrow_up : arrow_down}
@@ -747,7 +771,11 @@ useEffect(() => {
                     name="startingDate"
                     readOnly
                     value={stepTwoData.formattedStartingDate || ''}
-                    onClick={() => setShowDatePickerStart(true)}
+                    onClick={e => {
+                      e.stopPropagation();
+                      setShowDatePickerStart((prev) => !prev);
+                    }
+                    }
                   />
                   {showDatePickerStart && (
                     <div className={styles.two__picker}>
@@ -768,7 +796,7 @@ useEffect(() => {
                     src={calendar}
                     alt="calendar"
                     className={styles['two__calendar-img']}
-                    onClick={() => setShowDatePickerStart(true)}
+                    onClick={() => setShowDatePickerStart(prev => !prev)}
                   />
                 </div>
                 <div className={styles['two__block-hour']}>
