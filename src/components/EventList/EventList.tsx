@@ -1,12 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 import styles from './EventList.module.scss';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
@@ -27,7 +21,7 @@ type Props = {
 };
 
 export const EventList: React.FC<Props> = ({ title, subtitle }) => {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const { events, loading, errorMessage } = useContext(EventsContext);
   const [isVisible, setIsVisible] = useState(false);
   const [query, setQuery] = useState('');
@@ -60,28 +54,87 @@ export const EventList: React.FC<Props> = ({ title, subtitle }) => {
     return () => bottomDiv?.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const filteredEvents = useCallback(() => {
-    if (filters || query) {
-      const filtered = filteredEv(events, filters, query);
+  useEffect(() => {
+    const params = new URLSearchParams(search);
+    const queryParam = params.get('query') || '';
+    const startDateParam = params.get('startDate');
+    const endDateParam = params.get('endDate');
 
-      setFilteredEvent(filtered);
+    const startSearchDate = startDateParam ? new Date(startDateParam) : null;
+    const endSearchDate = endDateParam ? new Date(endDateParam) : null;
+
+    const newFilters: FilterSelection = {
+      query: queryParam,
+      categoryId: params.get('categoryId') || '',
+      opportunityType: params.get('opportunityType') || '',
+      assistanceType: params.get('assistanceType') || '',
+      region: params.get('region') || '',
+      timeDemands: params.get('timeDemands') || '',
+      startSearchDate,
+      endSearchDate,
+    };
+
+    setQuery(queryParam);
+    setFilters(newFilters);
+  }, [search]);
+
+  useEffect(() => {
+    if (filters || query) {
+      setFilteredEvent(filteredEv(events, filters, query));
     } else {
       setFilteredEvent(events);
     }
   }, [events, filters, query]);
 
-  useEffect(() => {
-    filteredEvents();
-  }, [filters, filteredEvents]);
-
   const handleFilterChange = (newFilters: FilterSelection) => {
-    setFilters(prevFilters => {
-      if (JSON.stringify(prevFilters) !== JSON.stringify(newFilters)) {
-        return newFilters;
-      }
+    setFilters(newFilters);
+    const params = new URLSearchParams();
 
-      return prevFilters;
-    });
+    if (newFilters.query) {
+      params.set('query', newFilters.query);
+    }
+
+    if (newFilters.categoryId) {
+      params.set('categoryId', newFilters.categoryId);
+    }
+
+    if (newFilters.opportunityType) {
+      params.set('opportunityType', newFilters.opportunityType);
+    }
+
+    if (newFilters.assistanceType) {
+      params.set('assistanceType', newFilters.assistanceType);
+    }
+
+    if (newFilters.region) {
+      params.set('region', newFilters.region);
+    }
+
+    if (newFilters.timeDemands) {
+      params.set('timeDemands', newFilters.timeDemands);
+    }
+
+    if (newFilters.startSearchDate) {
+      params.set(
+        'startDate',
+        newFilters.startSearchDate.toLocaleString('en-GB'),
+      );
+    }
+
+    if (newFilters.endSearchDate) {
+      params.set('endDate', newFilters.endSearchDate.toLocaleString('en-GB'));
+    }
+
+    const paramsString = params.toString();
+
+    if (paramsString) {
+      const currentPath = window.location.pathname;
+      const newUrl = `${currentPath}#${pathname}?${paramsString}`;
+
+      window.history.replaceState(null, '', newUrl);
+    }
+
+    setSearchParams(params);
   };
 
   const openFilters = () => {
@@ -93,15 +146,15 @@ export const EventList: React.FC<Props> = ({ title, subtitle }) => {
 
     setQuery(newQuery);
 
-    const newParams = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams);
 
     if (newQuery) {
-      newParams.set('query', newQuery);
+      params.set('query', newQuery);
     } else {
-      newParams.delete('query');
+      params.delete('query');
     }
 
-    setSearchParams(newParams);
+    setSearchParams(params);
   };
 
   const handleClickToTop = () => {

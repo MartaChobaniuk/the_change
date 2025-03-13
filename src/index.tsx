@@ -12,7 +12,7 @@ const cognitoAuthConfig = {
   authority:
     'https://cognito-idp.eu-north-1.amazonaws.com/eu-north-1_uHcVQq9Cg',
   client_id: '7f4n0jvd5vp0g8ji7p6ppe4gke',
-  redirect_uri: 'https://martachobaniuk.github.io/team_project/',
+  redirect_uri: 'https://thechange.netlify.app/',
   scope: 'aws.cognito.signin.user.admin email openid profile',
 };
 

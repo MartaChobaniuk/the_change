@@ -73,18 +73,21 @@ export const Filters: React.FC<FiltersProps> = ({
   useEffect(() => {
     const params = new URLSearchParams(search);
 
-    const categoryIdParam = params.get('categoryId');
-    const categoryName = categoryIdParam ? categoryId[categoryIdParam] : '';
-
     const startDateParam = params.get('startDate');
     const endDateParam = params.get('endDate');
 
-    const startSearchDate = startDateParam ? new Date(startDateParam) : null;
-    const endSearchDate = endDateParam ? new Date(endDateParam) : null;
+    const startSearchDate =
+      startDateParam && !isNaN(Date.parse(startDateParam))
+        ? new Date(startDateParam)
+        : null;
+    const endSearchDate =
+      endDateParam && !isNaN(Date.parse(endDateParam))
+        ? new Date(endDateParam)
+        : null;
 
     const newFilters: FilterSelection = {
       query: params.get('query') || '',
-      categoryId: categoryName || '',
+      categoryId: params.get('categoryId') || '',
       opportunityType: params.get('opportunityType') || '',
       assistanceType: params.get('assistanceType') || '',
       region: params.get('region') || '',
@@ -94,61 +97,75 @@ export const Filters: React.FC<FiltersProps> = ({
     };
 
     onFilterChange(newFilters);
+  }, [search]);
 
-    setSearchParams(params);
-  }, [search, setSearchParams]);
+  const updateFiltersInURL = useCallback(
+    (filterSearch: FilterSelection) => {
+      const urlParams = new URLSearchParams();
 
+      if (filterSearch.startDate) {
+        const formattedStartDate =
+          filterSearch.startDate.toLocaleDateString('en-GB');
 
-  const updateFiltersInURL = useCallback((filterSearch: FilterSelection) => {
-    const urlParams = new URLSearchParams();
+        urlParams.set('startDate', formattedStartDate);
+      } else {
+        urlParams.delete('startDate');
+      }
 
-    if (filterSearch.startDate) {
-      const formattedStartDate =
-        filterSearch.startDate.toLocaleDateString('en-GB');
+      if (filterSearch.endDate) {
+        const formattedEndDate =
+          filterSearch.endDate.toLocaleDateString('en-GB');
 
-      urlParams.set('startDate', formattedStartDate);
-    }
+        urlParams.set('endDate', formattedEndDate);
+      } else {
+        urlParams.delete('endDate');
+      }
 
-    if (filterSearch.endDate) {
-      const formattedEndDate =
-        filterSearch.endDate.toLocaleDateString('en-GB');
+      if (filterSearch.categoryId) {
+        urlParams.set('categoryId', filterSearch.categoryId);
+      } else {
+        urlParams.delete('categoryId');
+      }
 
-      urlParams.set('endDate', formattedEndDate);
-    }
+      if (filterSearch.opportunityType) {
+        urlParams.set('opportunityType', filterSearch.opportunityType);
+      } else {
+        urlParams.delete('opportunityType');
+      }
 
-    if (filterSearch.categoryId) {
-      urlParams.set('categoryId', filterSearch.categoryId);
-    }
+      if (filterSearch.assistanceType) {
+        urlParams.set('assistanceType', filterSearch.assistanceType);
+      } else {
+        urlParams.delete('assistanceType');
+      }
 
-    if (filterSearch.opportunityType) {
-      urlParams.set('opportunityType', filterSearch.opportunityType);
-    }
+      if (filterSearch.region) {
+        urlParams.set('region', filterSearch.region);
+      } else {
+        urlParams.delete('region');
+      }
 
-    if (filterSearch.assistanceType) {
-      urlParams.set('assistanceType', filterSearch.assistanceType);
-    }
+      if (filterSearch.timeDemands) {
+        urlParams.set('timeDemands', filterSearch.timeDemands);
+      } else {
+        urlParams.delete('timeDemands');
+      }
 
-    if (filterSearch.region) {
-      urlParams.set('region', filterSearch.region);
-    }
+      if (filterSearch.query) {
+        urlParams.set('query', filterSearch.query);
+      } else {
+        urlParams.delete('query');
+      }
 
-    if (filterSearch.timeDemands) {
-      urlParams.set('timeDemands', filterSearch.timeDemands);
-    }
+      const paramsString = urlParams.toString();
 
-    if (filterSearch.query) {
-      urlParams.set('query', filterSearch.query);
-    }
+      if (paramsString) {
+        const currentPath = window.location.pathname;
+        const newUrl = `${currentPath}#${pathname}?${paramsString}`;
 
-    const paramsString = urlParams.toString();
-
-    if (paramsString) {
-      const currentPath = window.location.pathname;
-      const newUrl = `${currentPath}#${pathname}?${paramsString}`;
-
-      window.history.replaceState(null, '', newUrl);
-    }
-  }, []);
+        window.history.replaceState(null, '', newUrl);
+      }
+    }, [pathname]);
 
   useEffect(() => {
     if (isVolunteering && !selectedOptions.assistanceType) {
@@ -305,9 +322,10 @@ export const Filters: React.FC<FiltersProps> = ({
     setStartDate(null);
     setEndDate(null);
     onFilterChange({});
-    updateFiltersInURL({});
     setApplyActive(false);
     setCancelActive(true);
+
+    setSearchParams(new URLSearchParams());
   };
 
   const handleHideFilters = () => {
