@@ -105,14 +105,6 @@ export const ProfileOpportunities = () => {
 
         const events = Array.isArray(data?.events) ? data.events : [];
 
-        if (!events.length) {
-          setError(
-            'Error: Invalid data structure received or empty events array.',
-          );
-
-          return;
-        }
-
         setPostedOpportunities(events);
       } catch (errorMes) {
         setError('Network error. Please check your connection.');
@@ -167,14 +159,6 @@ export const ProfileOpportunities = () => {
         const data = await response.json();
 
         const events = Array.isArray(data?.events) ? data.events : [];
-
-        if (!events.length) {
-          setErrorSubmittedOpport(
-            'Error: Invalid data structure received or empty events array.',
-          );
-
-          return;
-        }
 
         setSubmittedOpportunities(events);
       } catch (errorMes) {
@@ -275,7 +259,9 @@ export const ProfileOpportunities = () => {
                 Create an opportunity
               </button>
             </div>
-
+            {errorSubmittedOpport && (
+              <p className={styles.opport__error}>{errorSubmittedOpport}</p>
+            )}
             <div className={styles.opport__content}>
               <div className={styles.opport__grid}>
                 <div className={styles.opport__header}>
@@ -286,9 +272,6 @@ export const ProfileOpportunities = () => {
                   <span>Details</span>
                 </div>
                 <div className={styles['opport__line-grid']}></div>
-                {errorSubmittedOpport && (
-                  <p className={styles.opport__error}>{errorSubmittedOpport}</p>
-                )}
                 {loading ? (
                   <div>Loading opportunities...</div>
                 ) : submittedOpportunities.length > 0 ? (

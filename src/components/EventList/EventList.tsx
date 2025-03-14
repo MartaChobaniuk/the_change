@@ -114,15 +114,26 @@ export const EventList: React.FC<Props> = ({ title, subtitle }) => {
       params.set('timeDemands', newFilters.timeDemands);
     }
 
-    if (newFilters.startSearchDate) {
-      params.set(
-        'startDate',
-        newFilters.startSearchDate.toLocaleString('en-GB'),
-      );
+    if (
+      newFilters.startSearchDate instanceof Date &&
+      !isNaN(newFilters.startSearchDate.getTime())
+    ) {
+      const formattedStartDate = newFilters.startSearchDate
+        .toISOString()
+        .split('T')[0];
+
+      params.set('startDate', formattedStartDate);
     }
 
-    if (newFilters.endSearchDate) {
-      params.set('endDate', newFilters.endSearchDate.toLocaleString('en-GB'));
+    if (
+      newFilters.endSearchDate instanceof Date &&
+      !isNaN(newFilters.endSearchDate.getTime())
+    ) {
+      const formattedEndDate = newFilters.endSearchDate
+        .toISOString()
+        .split('T')[0];
+
+      params.set('endDate', formattedEndDate);
     }
 
     const paramsString = params.toString();

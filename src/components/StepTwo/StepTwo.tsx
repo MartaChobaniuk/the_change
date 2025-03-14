@@ -763,7 +763,14 @@ export const StepTwo = () => {
                 provide instructions.
               </p>
               <div className={styles['two__block-calendar']}>
-                <div className={styles.two__calendar}>
+                <button
+                  type="button"
+                  className={styles.two__calendar}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowDatePickerStart((prev) => !prev);
+                  }}
+                >
                   <input
                     type="text"
                     placeholder="Choose a starting date"
@@ -771,11 +778,6 @@ export const StepTwo = () => {
                     name="startingDate"
                     readOnly
                     value={stepTwoData.formattedStartingDate || ''}
-                    onClick={e => {
-                      e.stopPropagation();
-                      setShowDatePickerStart((prev) => !prev);
-                    }
-                    }
                   />
                   {showDatePickerStart && (
                     <div className={styles.two__picker}>
@@ -786,7 +788,6 @@ export const StepTwo = () => {
                             : null
                         }
                         onChange={handleStartingDateChange}
-                        onClickOutside={() => setShowDatePickerStart(false)}
                         inline
                         minDate={new Date()}
                       />
@@ -796,9 +797,8 @@ export const StepTwo = () => {
                     src={calendar}
                     alt="calendar"
                     className={styles['two__calendar-img']}
-                    onClick={() => setShowDatePickerStart(prev => !prev)}
                   />
-                </div>
+                </button>
                 <div className={styles['two__block-hour']}>
                   <input
                     value={stepTwoData.startHour}
@@ -851,7 +851,14 @@ export const StepTwo = () => {
                   <p className={styles.two__error}>{errors.startMinute}</p>
                 )}
               <div className={styles['two__block-calendar']}>
-                <div className={styles.two__calendar}>
+                <button
+                  type="button"
+                  className={styles.two__calendar}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowDatePickerEnd(prev => !prev);
+                  }}
+                >
                   <input
                     type="text"
                     placeholder="Choose a ending date"
@@ -859,7 +866,6 @@ export const StepTwo = () => {
                     name="endingDate"
                     readOnly
                     value={stepTwoData.formattedEndingDate || ''}
-                    onClick={() => setShowDatePickerEnd(true)}
                   />
                   {showDatePickerEnd && (
                     <div className={styles.two__picker}>
@@ -870,7 +876,6 @@ export const StepTwo = () => {
                             : null
                         }
                         onChange={handleEndingDateChange}
-                        onClickOutside={() => setShowDatePickerEnd(false)}
                         inline
                       />
                     </div>
@@ -879,9 +884,8 @@ export const StepTwo = () => {
                     src={calendar}
                     alt="calendar"
                     className={styles['two__calendar-img']}
-                    onClick={() => setShowDatePickerEnd(true)}
                   />
-                </div>
+                </button>
                 <div className={styles['two__block-hour']}>
                   <input
                     value={stepTwoData.endHour}

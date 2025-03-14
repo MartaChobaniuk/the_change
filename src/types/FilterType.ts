@@ -5,8 +5,8 @@ export interface FilterSelection {
   assistanceType?: string;
   region?: string;
   timeDemands?: string;
-  startDate?: Date | null;
-  endDate?: Date | null;
+  startDate?: Date | null | string;
+  endDate?: Date | null | string;
 
   [key: string]: string | Date | null | undefined;
 }

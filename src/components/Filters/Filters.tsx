@@ -73,18 +73,6 @@ export const Filters: React.FC<FiltersProps> = ({
   useEffect(() => {
     const params = new URLSearchParams(search);
 
-    const startDateParam = params.get('startDate');
-    const endDateParam = params.get('endDate');
-
-    const startSearchDate =
-      startDateParam && !isNaN(Date.parse(startDateParam))
-        ? new Date(startDateParam)
-        : null;
-    const endSearchDate =
-      endDateParam && !isNaN(Date.parse(endDateParam))
-        ? new Date(endDateParam)
-        : null;
-
     const newFilters: FilterSelection = {
       query: params.get('query') || '',
       categoryId: params.get('categoryId') || '',
@@ -92,8 +80,8 @@ export const Filters: React.FC<FiltersProps> = ({
       assistanceType: params.get('assistanceType') || '',
       region: params.get('region') || '',
       timeDemands: params.get('timeDemands') || '',
-      startSearchDate,
-      endSearchDate,
+      startDate: params.get('startDate'),
+      endDate: params.get('endDate'),
     };
 
     onFilterChange(newFilters);
@@ -105,7 +93,7 @@ export const Filters: React.FC<FiltersProps> = ({
 
       if (filterSearch.startDate) {
         const formattedStartDate =
-          filterSearch.startDate.toLocaleDateString('en-GB');
+          filterSearch.startDate.toLocaleString('en-GB');
 
         urlParams.set('startDate', formattedStartDate);
       } else {
@@ -114,7 +102,7 @@ export const Filters: React.FC<FiltersProps> = ({
 
       if (filterSearch.endDate) {
         const formattedEndDate =
-          filterSearch.endDate.toLocaleDateString('en-GB');
+          filterSearch.endDate.toLocaleString('en-GB');
 
         urlParams.set('endDate', formattedEndDate);
       } else {
@@ -186,20 +174,23 @@ export const Filters: React.FC<FiltersProps> = ({
       onFilterChange(filtersToApply);
       setApplyActive(true);
 
-      if (!searchParams.get('assistanceType')) {
-        const newParams = new URLSearchParams(searchParams);
+      const newParams = new URLSearchParams(searchParams);
 
+      if (isVolunteering && !searchParams.get('assistanceType')) {
         newParams.set('assistanceType', 'VOLUNTEERING');
+      }
+
+      if (newParams.toString() !== searchParams.toString()) {
         setSearchParams(newParams);
       }
     }
   }, [
     isVolunteering,
-    selectedOptions.assistanceType,  // Додаємо залежність лише для конкретного поля
+    selectedOptions.assistanceType,
     startDate,
     endDate,
     onFilterChange,
-    searchParams, // Використовуємо searchParams для актуалізації параметрів
+    searchParams,
     setSearchParams,
   ]
   );
@@ -344,7 +335,7 @@ export const Filters: React.FC<FiltersProps> = ({
         className={styles['filters__toggle-button']}
         onClick={e => {
           e.preventDefault();
-          setCalendarOpen(true);
+          setCalendarOpen(prev => !prev);
         }}
       >
         <p
