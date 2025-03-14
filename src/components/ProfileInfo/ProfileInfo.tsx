@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from 'react-oidc-context';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import styles from './ProfileInfo.module.scss';
 import { Path } from '../../utils/constants';
 import cn from 'classnames';
@@ -16,7 +16,6 @@ interface ProfileData {
 export const ProfileInfo = () => {
   const { pathname } = useLocation();
   const auth = useAuth();
-  const navigate = useNavigate();
   const [profileData, setProfileData] = useState<ProfileData>({
     name: '',
     email: '',
@@ -46,16 +45,6 @@ export const ProfileInfo = () => {
 
     return () => bottomDiv?.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const code = searchParams.get('code');
-
-    if (code) {
-      window.history.replaceState({}, '', window.location.pathname);
-      navigate('/profile/info', { replace: true });
-    }
-  }, [navigate]);
 
   useEffect(() => {
     if (!auth.isAuthenticated || !auth.user) {
