@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from 'react-oidc-context';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import styles from './ProfileInfo.module.scss';
 import { Path } from '../../utils/constants';
 import cn from 'classnames';
@@ -31,6 +31,17 @@ export const ProfileInfo = () => {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get('code');
+
+    if (code) {
+      window.history.replaceState({}, '', window.location.pathname);
+      navigate(Path.ProfileInfo, { replace: true });
+    }
+  }, [navigate]);
 
   useEffect(() => {
     const handleScroll = () => {

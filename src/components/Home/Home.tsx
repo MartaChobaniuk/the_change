@@ -14,16 +14,6 @@ export const Home: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const code = searchParams.get('code');
-
-    if (code) {
-      window.history.replaceState({}, '', window.location.pathname);
-      navigate('/', { replace: true });
-    }
-  }, [navigate]);
-
-  useEffect(() => {
     if (auth.isAuthenticated && auth.user) {
       const accessToken = auth.user.access_token;
 
