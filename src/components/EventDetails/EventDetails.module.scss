@@ -164,6 +164,7 @@
 
   &__content-bottom {
     position: relative;
+    background-color: var.$black;
     flex: 1 1 auto;
     overflow: auto;
     scrollbar-width: none;
