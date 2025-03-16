@@ -308,7 +308,6 @@ export const EventList: React.FC<Props> = ({ title, subtitle }) => {
         </div>
         <div
           className={cn(styles['explore__events-block'], {
-            [styles['explore__events-block--visible']]: isVisible,
             [styles['explore__events-block--is-filters']]: isFiltersOpen,
           })}
         >
