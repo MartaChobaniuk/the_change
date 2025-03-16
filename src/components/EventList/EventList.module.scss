@@ -4,6 +4,7 @@
 .explore {
   width: 100%;
   height: 100vh;
+  background-color: #fff;
   z-index: 11;
   overflow: hidden;
 
@@ -609,8 +610,6 @@
   }
 
   &__events-block {
-    background-color: #fff;
-
     @include mixin.on-mobile {
       width: 100%;
       height: 60vh;
