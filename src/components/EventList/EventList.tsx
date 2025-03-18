@@ -35,7 +35,7 @@ export const EventList: React.FC<Props> = ({ title, subtitle }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 4500);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -86,6 +86,13 @@ export const EventList: React.FC<Props> = ({ title, subtitle }) => {
     }
   }, [events, filters, query]);
 
+  const formatDateToUTC = (date: Date) => {
+    // eslint-disable-next-line max-len, prettier/prettier
+    const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+
+    return utcDate.toISOString().split('T')[0]; // Взяти лише YYYY-MM-DD
+  };
+
   const handleFilterChange = (newFilters: FilterSelection) => {
     setFilters(newFilters);
     const params = new URLSearchParams();
@@ -114,26 +121,12 @@ export const EventList: React.FC<Props> = ({ title, subtitle }) => {
       params.set('timeDemands', newFilters.timeDemands);
     }
 
-    if (
-      newFilters.startSearchDate instanceof Date &&
-      !isNaN(newFilters.startSearchDate.getTime())
-    ) {
-      const formattedStartDate = newFilters.startSearchDate
-        .toISOString()
-        .split('T')[0];
-
-      params.set('startDate', formattedStartDate);
+    if (newFilters.startDate instanceof Date) {
+      params.set('startDate', formatDateToUTC(newFilters.startDate));
     }
 
-    if (
-      newFilters.endSearchDate instanceof Date &&
-      !isNaN(newFilters.endSearchDate.getTime())
-    ) {
-      const formattedEndDate = newFilters.endSearchDate
-        .toISOString()
-        .split('T')[0];
-
-      params.set('endDate', formattedEndDate);
+    if (newFilters.endDate instanceof Date) {
+      params.set('endDate', formatDateToUTC(newFilters.endDate));
     }
 
     const paramsString = params.toString();

@@ -15,6 +15,14 @@ export const Faq = () => {
   const [isFixed, setIsFixed] = useState<boolean>(false);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
 
@@ -32,14 +40,6 @@ export const Faq = () => {
   const toggleQuestion = (id: number) => {
     setOpenQuestionId(prevId => (prevId === id ? null : id));
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 4000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <div

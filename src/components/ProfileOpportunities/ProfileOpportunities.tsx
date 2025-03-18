@@ -259,6 +259,7 @@ export const ProfileOpportunities = () => {
                 Create an opportunity
               </button>
             </div>
+
             {errorSubmittedOpport && (
               <p className={styles.opport__error}>{errorSubmittedOpport}</p>
             )}
@@ -275,109 +276,129 @@ export const ProfileOpportunities = () => {
                 {loading ? (
                   <div>Loading opportunities...</div>
                 ) : submittedOpportunities.length > 0 ? (
-                  submittedOpportunities.map(event => (
-                    <div key={event.eventId} className={styles.opport__row}>
-                      <span>{event.title}</span>
-                      <span> {event.currentTime.toLocaleString()}</span>
-                      <span>{event.opportunityType}</span>
-                      <span className={styles.opport__status}>
-                        {event.submittedStatus}
-                      </span>
-                      <Link
-                        to={`${event.opportunityType === 'WISHES' ? '/wishes' : '/volunteering'}/${event.eventId}`}
-                        className={styles['opport__button-detail']}
-                        aria-label={`View details for ${event.title}`}
-                      >
-                        Opportunity Information
-                      </Link>
-                    </div>
-                  ))
+                  submittedOpportunities.map(event => {
+                    const eventTime = new Date(event.currentTime);
+
+                    return (
+                      <div key={event.eventId} className={styles.opport__row}>
+                        <span>{event.title}</span>
+                        <span>
+                          {isNaN(eventTime.getTime())
+                            ? 'No time'
+                            : eventTime.toLocaleString()}
+                        </span>
+                        <span>{event.opportunityType}</span>
+                        <span className={styles.opport__status}>
+                          {event.submittedStatus}
+                        </span>
+                        <Link
+                          to={`${event.opportunityType === 'WISHES' ? '/wishes' : '/volunteering'}/${event.eventId}`}
+                          className={styles['opport__button-detail']}
+                          aria-label={`View details for ${event.title}`}
+                        >
+                          Opportunity Information
+                        </Link>
+                      </div>
+                    );
+                  })
                 ) : (
                   <div>No opportunities available.</div>
                 )}
               </div>
               <div className={styles.opport__list} ref={parent}>
                 {submittedOpportunities.length > 0 ? (
-                  submittedOpportunities.map(event => (
-                    <React.Fragment key={event.eventId}>
-                      <div className={styles.opport__dropdown}>
-                        <button
-                          className={styles['opport__dropdown-button']}
-                          onClick={e => {
-                            e.preventDefault();
-                            toggleOpen(event.eventId);
-                          }}
-                        >
-                          <span className={styles.opport__select}>
-                            {event.title}
-                          </span>
-                        </button>
-                        <div
-                          className={styles['opport__dropdown-img-container']}
-                        >
-                          <img
-                            className={styles['opport__dropdown-img']}
-                            src={
-                              openDropdown === event.eventId
-                                ? arrow_up
-                                : arrow_down
-                            }
-                            alt="Arrow Down"
-                          />
-                        </div>
-                      </div>
-                      <div className={styles.opport__line}></div>
-                      {openDropdown === event.eventId && (
-                        <div className={styles.opport__info}>
-                          <div>
-                            <span className={styles['opport__detail-name']}>
-                              Submission Date:
-                            </span>
-                            <span className={styles['opport__detail-value']}>
-                              {event.currentTime.toLocaleString()}
-                            </span>
-                          </div>
-                          <div>
-                            <span className={styles['opport__detail-name']}>
-                              Type:
-                            </span>
-                            <span className={styles['opport__detail-value']}>
-                              {event.opportunityType}
-                            </span>
-                          </div>
-                          <div>
-                            <span className={styles['opport__detail-name']}>
-                              Status:
-                            </span>
-                            <span
-                              className={cn(
-                                styles['opport__detail-value'],
-                                styles.opport__status,
-                                {
-                                  [styles['opport__status--progress']]:
-                                    // eslint-disable-next-line prettier/prettier
-                                    event.submittedStatus === 'Information requested' ||
-                                    event.submittedStatus === 'Denied',
-                                  [styles['opport__status--completed']]:
-                                    event.submittedStatus === 'Submitted' ||
-                                    event.submittedStatus === 'On Review',
-                                },
-                              )}
-                            >
-                              {event.submittedStatus}
-                            </span>
-                          </div>
-                          <Link
-                            to={`${event.opportunityType === 'WISHES' ? '/wishes' : '/volunteering'}/${event.eventId}`}
-                            className={styles['opport__button-detail']}
-                            aria-label={`View details for ${event.title}`}
+                  submittedOpportunities.map(event => {
+                    const eventTime = new Date(event.currentTime);
+
+                    return (
+                      <React.Fragment key={event.eventId}>
+                        <div className={styles.opport__dropdown}>
+                          <button
+                            type="button"
+                            className={styles['opport__dropdown-button']}
+                            onClick={e => {
+                              e.preventDefault();
+                              toggleOpen(event.eventId);
+                            }}
                           >
-                            Opportunity Information
-                          </Link>
+                            <span className={styles.opport__select}>
+                              {event.title}
+                            </span>
+                          </button>
+                          <button
+                            type="button"
+                            className={styles['opport__dropdown-img-container']}
+                            onClick={e => {
+                              e.preventDefault();
+                              toggleOpen(event.eventId);
+                            }}
+                          >
+                            <img
+                              className={styles['opport__dropdown-img']}
+                              src={
+                                openDropdown === event.eventId
+                                  ? arrow_up
+                                  : arrow_down
+                              }
+                              alt="Arrow Down"
+                            />
+                          </button>
                         </div>
-                      )}
-                    </React.Fragment>
-                  ))
+                        <div className={styles.opport__line}></div>
+                        {openDropdown === event.eventId && (
+                          <div className={styles.opport__info}>
+                            <div>
+                              <span className={styles['opport__detail-name']}>
+                                Submission Date:
+                              </span>
+                              <span className={styles['opport__detail-value']}>
+                                {isNaN(eventTime.getTime())
+                                  ? 'No time'
+                                  : eventTime.toLocaleString()}
+                              </span>
+                            </div>
+                            <div>
+                              <span className={styles['opport__detail-name']}>
+                                Type:
+                              </span>
+                              <span className={styles['opport__detail-value']}>
+                                {event.opportunityType}
+                              </span>
+                            </div>
+                            <div>
+                              <span className={styles['opport__detail-name']}>
+                                Status:
+                              </span>
+                              <span
+                                className={cn(
+                                  styles['opport__detail-value'],
+                                  styles.opport__status,
+                                  {
+                                    [styles['opport__status--progress']]:
+                                      event.submittedStatus ===
+                                        'Information requested' ||
+                                      event.submittedStatus === 'Denied',
+                                    [styles['opport__status--completed']]:
+                                      event.submittedStatus === 'Submitted' ||
+                                      event.submittedStatus === 'On Review',
+                                  },
+                                )}
+                              >
+                                {event.submittedStatus}
+                              </span>
+                            </div>
+                            <Link
+                              to={`${event.opportunityType === 'WISHES' ? '/wishes' : '/volunteering'}/${event.eventId}`}
+                              className={styles['opport__button-detail']}
+                              aria-label={`View details for ${event.title}`}
+                            >
+                              Opportunity Information
+                            </Link>
+                          </div>
+                        )}
+                      </React.Fragment>
+                    );
+                  })
                 ) : (
                   <p>No opportunities available</p>
                 )}

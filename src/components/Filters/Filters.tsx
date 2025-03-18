@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prettier/prettier */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Filters.module.scss';
 import cn from 'classnames';
 import arrow_up from '../../images/icons/arrow_up_white (2).svg';
@@ -51,109 +51,51 @@ export const Filters: React.FC<FiltersProps> = ({
   onFilterChange,
   setIsFiltersOpen,
 }) => {
-  const { pathname, search } = useLocation();
+  const { search } = useLocation();
   const { isVolunteering, isWishes, isDonate } = usePathChecker();
+  const params = new URLSearchParams(search);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [dropdownStates, setDropdownStates] = useState(initialDropdowns);
-  const [selectedOptions, setSelectedOptions] = useState<{
-    categoryId: string;
-    opportunityType: string;
-    assistanceType: string;
-    region: string;
-    timeDemands: string;
-  }>(initialCategories);
+  const [selectedOptions, setSelectedOptions] = useState({
+    categoryId: params.get('categoryId') || '',
+    opportunityType: params.get('opportunityType') || '',
+    assistanceType: params.get('assistanceType') || '',
+    region: params.get('region') || '',
+    timeDemands: params.get('timeDemands') || '',
+  });
 
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(
+    params.get('startDate') ? new Date(params.get('startDate')!) : null
+  );
+  const [endDate, setEndDate] = useState<Date | null>(
+    params.get('endDate') ? new Date(params.get('endDate')!) : null
+  );
   const [showDatePickerStart, setShowDatePickerStart] = useState(false);
   const [showDatePickerEnd, setShowDatePickerEnd] = useState(false);
   const [isApplyActive, setApplyActive] = useState(false);
   const [isCancelActive, setCancelActive] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const params = new URLSearchParams(search);
+    const startDateParam = params.get('startDate');
+    const endDateParam = params.get('endDate');
 
-    const newFilters: FilterSelection = {
-      query: params.get('query') || '',
+    const hasDates = startDateParam || endDateParam;
+
+    setSelectedOptions({
       categoryId: params.get('categoryId') || '',
       opportunityType: params.get('opportunityType') || '',
       assistanceType: params.get('assistanceType') || '',
       region: params.get('region') || '',
       timeDemands: params.get('timeDemands') || '',
-      startDate: params.get('startDate'),
-      endDate: params.get('endDate'),
-    };
+    });
 
-    onFilterChange(newFilters);
+    setStartDate(startDateParam ? new Date(startDateParam) : null);
+    setEndDate(endDateParam ? new Date(endDateParam) : null);
+
+    if (hasDates) {
+      setApplyActive(true);
+    }
   }, [search]);
-
-  const updateFiltersInURL = useCallback(
-    (filterSearch: FilterSelection) => {
-      const urlParams = new URLSearchParams();
-
-      if (filterSearch.startDate) {
-        const formattedStartDate =
-          filterSearch.startDate.toLocaleString('en-GB');
-
-        urlParams.set('startDate', formattedStartDate);
-      } else {
-        urlParams.delete('startDate');
-      }
-
-      if (filterSearch.endDate) {
-        const formattedEndDate =
-          filterSearch.endDate.toLocaleString('en-GB');
-
-        urlParams.set('endDate', formattedEndDate);
-      } else {
-        urlParams.delete('endDate');
-      }
-
-      if (filterSearch.categoryId) {
-        urlParams.set('categoryId', filterSearch.categoryId);
-      } else {
-        urlParams.delete('categoryId');
-      }
-
-      if (filterSearch.opportunityType) {
-        urlParams.set('opportunityType', filterSearch.opportunityType);
-      } else {
-        urlParams.delete('opportunityType');
-      }
-
-      if (filterSearch.assistanceType) {
-        urlParams.set('assistanceType', filterSearch.assistanceType);
-      } else {
-        urlParams.delete('assistanceType');
-      }
-
-      if (filterSearch.region) {
-        urlParams.set('region', filterSearch.region);
-      } else {
-        urlParams.delete('region');
-      }
-
-      if (filterSearch.timeDemands) {
-        urlParams.set('timeDemands', filterSearch.timeDemands);
-      } else {
-        urlParams.delete('timeDemands');
-      }
-
-      if (filterSearch.query) {
-        urlParams.set('query', filterSearch.query);
-      } else {
-        urlParams.delete('query');
-      }
-
-      const paramsString = urlParams.toString();
-
-      if (paramsString) {
-        const currentPath = window.location.pathname;
-        const newUrl = `${currentPath}#${pathname}?${paramsString}`;
-
-        window.history.replaceState(null, '', newUrl);
-      }
-    }, [pathname]);
 
   useEffect(() => {
     if (isVolunteering && !selectedOptions.assistanceType) {
@@ -292,19 +234,22 @@ export const Filters: React.FC<FiltersProps> = ({
     }));
   };
 
-  const applyFilters = () => {
-    const filtersToApply = {
-      ...selectedOptions,
-      startDate,
-      endDate,
-    };
+  useEffect(() => {
+    if (isApplyActive) {
+      const filtersToApply = {
+        ...selectedOptions,
+        startDate,
+        endDate,
+      };
 
-    onFilterChange(filtersToApply);
+      onFilterChange(filtersToApply);
+    }
+  }, [startDate, endDate, selectedOptions, isApplyActive]);
+
+  const applyFilters = () => {
     setApplyActive(true);
     setCancelActive(false);
     setIsFiltersOpen(false);
-
-    updateFiltersInURL(filtersToApply);
   };
 
   const cancelFilters = () => {
@@ -382,6 +327,7 @@ export const Filters: React.FC<FiltersProps> = ({
           <h3 className={styles.filters__name}>Opportunity Type</h3>
           <div className={styles.filters__dropdown}>
             <button
+              type="button"
               className={styles['filters__dropdown-button']}
               onClick={e => {
                 e.preventDefault();
@@ -397,7 +343,14 @@ export const Filters: React.FC<FiltersProps> = ({
                 {selectedOptions.opportunityType || 'Opportunity Type'}
               </span>
             </button>
-            <div className={styles['filters__dropdown-img-container']}>
+            <button
+              type="button"
+              className={styles['filters__dropdown-img-container']}
+              onClick={e => {
+                e.preventDefault();
+                toggleDropdown('opportunityType');
+              }}
+            >
               <img
                 className={styles['filters__dropdown-img']}
                 src={
@@ -405,7 +358,7 @@ export const Filters: React.FC<FiltersProps> = ({
                 }
                 alt="Arrow Down"
               />
-            </div>
+            </button>
           </div>
           {dropdownStates.opportunityType && (
             <ul className={styles['filters__dropdown-list']}>
@@ -439,6 +392,7 @@ export const Filters: React.FC<FiltersProps> = ({
           <h3 className={styles.filters__name}>Assistance Type</h3>
           <div className={styles.filters__dropdown}>
             <button
+              type="button"
               className={styles['filters__dropdown-button']}
               onClick={e => {
                 e.preventDefault();
@@ -454,7 +408,14 @@ export const Filters: React.FC<FiltersProps> = ({
                 {selectedOptions.assistanceType || 'Assistance Type'}
               </span>
             </button>
-            <div className={styles['filters__dropdown-img-container']}>
+            <button
+              type="button"
+              className={styles['filters__dropdown-img-container']}
+              onClick={e => {
+                e.preventDefault();
+                toggleDropdown('assistanceType');
+              }}
+            >
               <img
                 className={styles['filters__dropdown-img']}
                 src={
@@ -462,7 +423,7 @@ export const Filters: React.FC<FiltersProps> = ({
                 }
                 alt="Arrow Down"
               />
-            </div>
+            </button>
           </div>
           {dropdownStates.assistanceType && (
             <ul className={styles['filters__dropdown-list']}>
@@ -496,6 +457,7 @@ export const Filters: React.FC<FiltersProps> = ({
           <h3 className={styles.filters__name}>Category</h3>
           <div className={styles.filters__dropdown}>
             <button
+              type="button"
               className={styles['filters__dropdown-button']}
               onClick={e => {
                 e.preventDefault();
@@ -513,13 +475,20 @@ export const Filters: React.FC<FiltersProps> = ({
                   : 'Category'}
               </span>
             </button>
-            <div className={styles['filters__dropdown-img-container']}>
+            <button
+              type="button"
+              className={styles['filters__dropdown-img-container']}
+              onClick={e => {
+                e.preventDefault();
+                toggleDropdown('categoryId');
+              }}
+            >
               <img
                 className={styles['filters__dropdown-img']}
                 src={dropdownStates.categoryId ? arrow_up : arrow_down}
                 alt="Arrow Down"
               />
-            </div>
+            </button>
           </div>
           {dropdownStates.categoryId && (
             <ul className={styles['filters__dropdown-list']}>
@@ -553,6 +522,7 @@ export const Filters: React.FC<FiltersProps> = ({
           <h3 className={styles.filters__name}>Location</h3>
           <div className={styles.filters__dropdown}>
             <button
+              type="button"
               className={styles['filters__dropdown-button']}
               onClick={e => {
                 e.preventDefault();
@@ -567,13 +537,20 @@ export const Filters: React.FC<FiltersProps> = ({
                 {selectedOptions.region || 'Region'}
               </span>
             </button>
-            <div className={styles['filters__dropdown-img-container']}>
+            <button
+              type="button"
+              className={styles['filters__dropdown-img-container']}
+              onClick={e => {
+                e.preventDefault();
+                toggleDropdown('region');
+              }}
+            >
               <img
                 className={styles['filters__dropdown-img']}
                 src={dropdownStates.region ? arrow_up : arrow_down}
                 alt="Arrow Down"
               />
-            </div>
+            </button>
           </div>
           {dropdownStates.region && (
             <ul className={styles['filters__dropdown-list']}>
@@ -605,6 +582,7 @@ export const Filters: React.FC<FiltersProps> = ({
           <h3 className={styles.filters__name}>Time Demands</h3>
           <div className={styles.filters__dropdown}>
             <button
+              type="button"
               className={styles['filters__dropdown-button']}
               onClick={e => {
                 e.preventDefault();
@@ -620,13 +598,20 @@ export const Filters: React.FC<FiltersProps> = ({
                 {selectedOptions.timeDemands || 'Time Demands'}
               </span>
             </button>
-            <div className={styles['filters__dropdown-img-container']}>
+            <button
+              type="button"
+              className={styles['filters__dropdown-img-container']}
+              onClick={e => {
+                e.preventDefault();
+                toggleDropdown('timeDemands');
+              }}
+            >
               <img
                 className={styles['filters__dropdown-img']}
                 src={dropdownStates.timeDemands ? arrow_up : arrow_down}
                 alt="Arrow Down"
               />
-            </div>
+            </button>
           </div>
           {dropdownStates.timeDemands && (
             <ul className={styles['filters__dropdown-list']}>

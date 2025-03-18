@@ -15,6 +15,7 @@ import { DonationStepOne } from '../DonationStepOne';
 import { DonationStepTwo } from '../DonationStepTwo';
 import { DonationStepThree } from '../DonationStepThree';
 import { ParticipateForm } from '../ParticipateForm';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 export const EventDetails = () => {
   const { eventId } = useParams<{ eventId: string }>();
@@ -29,11 +30,12 @@ export const EventDetails = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [parent] = useAutoAnimate({ duration: 500 });
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 4000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -56,7 +58,6 @@ export const EventDetails = () => {
       bottomDiv?.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
 
   useEffect(() => {
     const fetchEventDetails = async () => {
@@ -382,50 +383,55 @@ export const EventDetails = () => {
               </>
             )}
 
-            {!activeForm && (
-              <div className={styles['event-details__organizer-mobile']} onClick={toggleOrganizerInfo}>
-                <p className={styles['event-details__organizer-mob-title']}>About the organizer</p>
-                <div className={styles['event-details__collaps-line']}></div>
-              </div>
-            )}
-            {!activeForm && isOrganizerVisible && (
-              <>
-                <div className={styles['event-details__mob-organizer-block']}>
-                  <div className={styles['event-details__img-container']}>
-                    <img
-                      src={event.organizerPhoto}
-                      alt="logo"
-                      className={styles['event-details__organizer-logo']}
-                    />
-                  </div>
-                  <div className={styles['event-details__organizer-details']}>
-                    <p className={styles['event-details__organizer-title']}>
-                      {event.organizerType === 'Individual' ? 'Organizer person' : 'Organization'}
-                    </p>
-                    <p className={styles['event-details__organizer-name']}>
-                      {event.organizerName}
-                    </p>
-                    <p className={styles['event-details__organizer-phone']}>
-                      {event.phone}
-                    </p>
-                    <p className={styles['event-details__organizer-email']}>
-                      {event.organizerEmail}
-                    </p>
-                    <p className={styles['event-details__organizer-link']}>
-                      {event.link}
-                    </p>
-                  </div>
+            <div ref={parent}>
+              {!activeForm && (
+                <div
+                  className={styles['event-details__organizer-mobile']}
+                  onClick={toggleOrganizerInfo}
+                >
+                  <p className={styles['event-details__organizer-mob-title']}>About the organizer</p>
+                  <div className={styles['event-details__collaps-line']}></div>
                 </div>
-                <div className={styles['event-details__mob-organizer-buttons']}>
-                  <button className={styles['event-details__organizer-button']}>
-                    Feedback
-                  </button>
-                  <button className={styles['event-details__organizer-button']}>
-                    Success Stories
-                  </button>
-                </div>
-              </>
-            )}
+              )}
+              {!activeForm && isOrganizerVisible && (
+                <>
+                  <div className={styles['event-details__mob-organizer-block']}>
+                    <div className={styles['event-details__img-container']}>
+                      <img
+                        src={event.organizerPhoto}
+                        alt="logo"
+                        className={styles['event-details__organizer-logo']}
+                      />
+                    </div>
+                    <div className={styles['event-details__organizer-details']}>
+                      <p className={styles['event-details__organizer-title']}>
+                        {event.organizerType === 'Individual' ? 'Organizer person' : 'Organization'}
+                      </p>
+                      <p className={styles['event-details__organizer-name']}>
+                        {event.organizerName}
+                      </p>
+                      <p className={styles['event-details__organizer-phone']}>
+                        {event.phone}
+                      </p>
+                      <p className={styles['event-details__organizer-email']}>
+                        {event.organizerEmail}
+                      </p>
+                      <p className={styles['event-details__organizer-link']}>
+                        {event.link}
+                      </p>
+                    </div>
+                  </div>
+                  <div className={styles['event-details__mob-organizer-buttons']}>
+                    <button className={styles['event-details__organizer-button']}>
+                      Feedback
+                    </button>
+                    <button className={styles['event-details__organizer-button']}>
+                      Success Stories
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
             {activeForm === 'volunteering' && event && (
               <ParticipateForm
                 title={event.title}

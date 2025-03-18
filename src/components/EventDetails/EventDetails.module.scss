@@ -162,9 +162,34 @@
     flex-direction: column;
   }
 
+  &__content {
+    width: 100%;
+    background-color: var.$black;
+
+    @include mixin.on-mobile {
+      height: 440px;
+      border-radius: 0;
+    }
+
+    @include mixin.on-tablet {
+      height: 400px;
+      border-radius: 0;
+    }
+
+    @include mixin.on-tablet-2 {
+      height: 280px;
+      border-radius: 0;
+    }
+
+    @include mixin.on-desktop {
+      min-height: 280px;
+      height: 50vh;
+      border-radius: 0 0 0 20px;
+    }
+  }
+
   &__content-bottom {
     position: relative;
-    background-color: var.$black;
     flex: 1 1 auto;
     overflow: auto;
     scrollbar-width: none;
@@ -705,6 +730,8 @@
   }
 
   &__mob-organizer-block {
+    cursor: pointer;
+
     @include mixin.on-mobile {
       @include mixin.flex(flex, center, space-between, column);
 
@@ -745,7 +772,7 @@
     @include mixin.on-desktop {
       width: 100%;
 
-      @include mixin.flex(flex, false, space-between, row);
+      @include mixin.flex(flex, center, space-between, row);
     }
   }
 
@@ -767,7 +794,7 @@
     }
 
     @include mixin.on-desktop {
-      @include mixin.flex(flex, false, false, column);
+      @include mixin.flex(flex, center, center, column);
     }
   }
 
@@ -775,6 +802,8 @@
     @include mixin.small-text-desktop-tablet;
 
     color: var.$light-gray;
+    text-align: center;
+    margin-bottom: 10px;
   }
 
   &__img-container {
@@ -808,6 +837,7 @@
 
     color: var.$light-gray;
     margin-bottom: 20px;
+    text-align: center;
   }
 
   &__organizer-phone {
