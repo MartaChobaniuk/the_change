@@ -52,11 +52,13 @@ export const EventCard: React.FC<Props> = ({ event }) => {
         </span>
       </div>
       <h4 className={styles.event__title}>{event.title}</h4>
-      <ProgressBar
-        target={event.target}
-        currentProgress={event.currentProgress}
-        assistanceType={event.assistanceType}
-      />
+      <div className={styles.event__progress}>
+        <ProgressBar
+          target={event.target}
+          currentProgress={event.currentProgress}
+          assistanceType={event.assistanceType}
+        />
+      </div>
       <div className={styles.event__types}>
         <p>{categoryId[event.categoryId] || 'Category'}</p>
       </div>

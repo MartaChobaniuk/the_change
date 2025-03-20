@@ -156,19 +156,19 @@ export const Filters: React.FC<FiltersProps> = ({
       onFilterChange(filtersToApply);
       setApplyActive(true);
 
-      if (!searchParams.get('assistanceType')) {
-        setSearchParams(prev => {
-          const newParams = new URLSearchParams(prev);
+      const newParams = new URLSearchParams(searchParams);
 
-          newParams.set('assistanceType', 'DONATION');
+      if (isWishes && !searchParams.get('assistanceType')) {
+        newParams.set('assistanceType', 'DONATION');
+      }
 
-          return newParams;
-        });
+      if (newParams.toString() !== searchParams.toString()) {
+        setSearchParams(newParams);
       }
     }
   }, [
     isWishes,
-    selectedOptions,
+    selectedOptions.assistanceType,
     startDate,
     endDate,
     onFilterChange,
@@ -195,14 +195,14 @@ export const Filters: React.FC<FiltersProps> = ({
       onFilterChange(filtersToApply);
       setApplyActive(true);
 
-      if (!searchParams.get('assistanceType')) {
-        setSearchParams(prev => {
-          const newParams = new URLSearchParams(prev);
+      const newParams = new URLSearchParams(searchParams);
 
-          newParams.set('assistanceType', 'DONATION');
+      if (isWishes && !searchParams.get('assistanceType')) {
+        newParams.set('assistanceType', 'DONATION');
+      }
 
-          return newParams;
-        });
+      if (newParams.toString() !== searchParams.toString()) {
+        setSearchParams(newParams);
       }
     }
   }, [

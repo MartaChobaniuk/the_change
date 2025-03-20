@@ -24,13 +24,13 @@ export const EventList: React.FC<Props> = ({ title, subtitle }) => {
   const { pathname, search } = useLocation();
   const { events, loading, errorMessage } = useContext(EventsContext);
   const [isVisible, setIsVisible] = useState(false);
-  const [query, setQuery] = useState('');
   const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [filters, setFilters] = useState<FilterSelection>({});
   const [filteredEvent, setFilteredEvent] = useState<EventType[]>([]);
   const bottomRef = useRef<HTMLDivElement>(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get('query') || '');
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -95,47 +95,54 @@ export const EventList: React.FC<Props> = ({ title, subtitle }) => {
 
   const handleFilterChange = (newFilters: FilterSelection) => {
     setFilters(newFilters);
-    const params = new URLSearchParams();
+    const params = new URLSearchParams(searchParams);
 
     if (newFilters.query) {
       params.set('query', newFilters.query);
+    } else {
+      params.delete('query');
     }
 
     if (newFilters.categoryId) {
       params.set('categoryId', newFilters.categoryId);
+    } else {
+      params.delete('categoryId');
     }
 
     if (newFilters.opportunityType) {
       params.set('opportunityType', newFilters.opportunityType);
+    } else {
+      params.delete('opportunityType');
     }
 
     if (newFilters.assistanceType) {
       params.set('assistanceType', newFilters.assistanceType);
+    } else {
+      params.delete('assistanceType');
     }
 
     if (newFilters.region) {
       params.set('region', newFilters.region);
+    } else {
+      params.delete('region');
     }
 
     if (newFilters.timeDemands) {
       params.set('timeDemands', newFilters.timeDemands);
+    } else {
+      params.delete('timeDemands');
     }
 
     if (newFilters.startDate instanceof Date) {
       params.set('startDate', formatDateToUTC(newFilters.startDate));
+    } else {
+      params.delete('startDate');
     }
 
     if (newFilters.endDate instanceof Date) {
       params.set('endDate', formatDateToUTC(newFilters.endDate));
-    }
-
-    const paramsString = params.toString();
-
-    if (paramsString) {
-      const currentPath = window.location.pathname;
-      const newUrl = `${currentPath}#${pathname}?${paramsString}`;
-
-      window.history.replaceState(null, '', newUrl);
+    } else {
+      params.delete('endDate');
     }
 
     setSearchParams(params);

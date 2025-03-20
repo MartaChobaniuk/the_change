@@ -193,6 +193,7 @@ export const EventDetails = () => {
               : 'none',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
+            backgroundPosition: 'center',
           }}
         >
           <div className={styles.overlay} />

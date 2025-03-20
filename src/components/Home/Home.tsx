@@ -14,14 +14,6 @@ export const Home: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-
-    if (searchParams.has('code')) {
-      window.history.replaceState({}, '', window.location.pathname);
-    }
-  }, []);
-
-  useEffect(() => {
     if (auth.isAuthenticated && auth.user) {
       const accessToken = auth.user.access_token;
 
@@ -30,6 +22,14 @@ export const Home: React.FC = () => {
       }
     }
   }, [auth.isAuthenticated, auth.user]);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    if (searchParams.has('code') && auth.isAuthenticated) {
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, [auth.isAuthenticated]);
 
   const handlers = useSwipeable({
     onSwipedUp: () => {
