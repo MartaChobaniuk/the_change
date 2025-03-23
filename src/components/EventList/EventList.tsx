@@ -33,6 +33,26 @@ export const EventList: React.FC<Props> = ({ title, subtitle }) => {
   const [query, setQuery] = useState(searchParams.get('query') || '');
 
   useEffect(() => {
+    setQuery(searchParams.get('query') || '');
+  }, [searchParams]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuery = e.target.value;
+
+    setQuery(newQuery);
+
+    const newParams = new URLSearchParams(searchParams);
+
+    if (newQuery) {
+      newParams.set('query', newQuery);
+    } else {
+      newParams.delete('query');
+    }
+
+    setSearchParams(newParams);
+  };
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 2000);
@@ -97,6 +117,10 @@ export const EventList: React.FC<Props> = ({ title, subtitle }) => {
     setFilters(newFilters);
     const params = new URLSearchParams(searchParams);
 
+    if (query) {
+      params.set('query', query);
+    }
+
     if (newFilters.query) {
       params.set('query', newFilters.query);
     } else {
@@ -150,22 +174,6 @@ export const EventList: React.FC<Props> = ({ title, subtitle }) => {
 
   const openFilters = () => {
     setIsFiltersOpen(true);
-  };
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuery = e.target.value;
-
-    setQuery(newQuery);
-
-    const params = new URLSearchParams(searchParams);
-
-    if (newQuery) {
-      params.set('query', newQuery);
-    } else {
-      params.delete('query');
-    }
-
-    setSearchParams(params);
   };
 
   const handleClickToTop = () => {

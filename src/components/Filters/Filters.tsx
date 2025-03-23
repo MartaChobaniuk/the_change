@@ -56,6 +56,7 @@ export const Filters: React.FC<FiltersProps> = ({
   const params = new URLSearchParams(search);
   const [searchParams, setSearchParams] = useSearchParams();
   const [dropdownStates, setDropdownStates] = useState(initialDropdowns);
+  const [query, setQuery] = useState(params.get('query') || '');
   const [selectedOptions, setSelectedOptions] = useState({
     categoryId: params.get('categoryId') || '',
     opportunityType: params.get('opportunityType') || '',
@@ -74,6 +75,10 @@ export const Filters: React.FC<FiltersProps> = ({
   const [showDatePickerEnd, setShowDatePickerEnd] = useState(false);
   const [isApplyActive, setApplyActive] = useState(false);
   const [isCancelActive, setCancelActive] = useState(false);
+
+  useEffect(() => {
+    setQuery(params.get('query') || '');
+  }, [search]);
 
   useEffect(() => {
     const startDateParam = params.get('startDate');
@@ -122,6 +127,10 @@ export const Filters: React.FC<FiltersProps> = ({
         newParams.set('assistanceType', 'VOLUNTEERING');
       }
 
+      if (query) {
+        newParams.set('query', query);
+      }
+
       if (newParams.toString() !== searchParams.toString()) {
         setSearchParams(newParams);
       }
@@ -134,8 +143,7 @@ export const Filters: React.FC<FiltersProps> = ({
     onFilterChange,
     searchParams,
     setSearchParams,
-  ]
-  );
+  ]);
 
   useEffect(() => {
     if (isWishes && !selectedOptions.assistanceType) {
@@ -240,11 +248,12 @@ export const Filters: React.FC<FiltersProps> = ({
         ...selectedOptions,
         startDate,
         endDate,
+        query
       };
 
       onFilterChange(filtersToApply);
     }
-  }, [startDate, endDate, selectedOptions, isApplyActive]);
+  }, [startDate, endDate, query, selectedOptions, isApplyActive]);
 
   const applyFilters = () => {
     setApplyActive(true);
