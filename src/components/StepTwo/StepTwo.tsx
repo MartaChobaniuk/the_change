@@ -372,6 +372,15 @@ export const StepTwo = () => {
       newErrors.endMinute = 'Please choose a ending minutes';
     }
 
+    if (
+      stepTwoData.startingDate &&
+      stepTwoData.endingDate &&
+      new Date(stepTwoData.startingDate) > new Date(stepTwoData.endingDate)
+    ) {
+      newErrors.dateOrder = 'Start date cannot be later than end date';
+    }
+
+
     setErrors(newErrors);
 
     return Object.keys(newErrors).length === 0;
@@ -423,7 +432,6 @@ export const StepTwo = () => {
               {errors.title && !stepTwoData.title && (
                 <p className={styles.two__error}>{errors.title}</p>
               )}
-              <p className={styles.two__remark}>*Required</p>
               <div className={styles['two__dropdowns-block']}>
                 <div className={styles['two__dropdown-categories']}>
                   <button
@@ -779,26 +787,26 @@ export const StepTwo = () => {
                     readOnly
                     value={stepTwoData.formattedStartingDate || ''}
                   />
-                  {showDatePickerStart && (
-                    <div className={styles.two__picker}>
-                      <DatePicker
-                        selected={
-                          stepTwoData.startingDate
-                            ? new Date(stepTwoData.startingDate)
-                            : null
-                        }
-                        onChange={handleStartingDateChange}
-                        inline
-                        minDate={new Date()}
-                      />
-                    </div>
-                  )}
                   <img
                     src={calendar}
                     alt="calendar"
                     className={styles['two__calendar-img']}
                   />
                 </button>
+                {showDatePickerStart && (
+                  <div className={styles.two__picker}>
+                    <DatePicker
+                      selected={
+                        stepTwoData.startingDate
+                          ? new Date(stepTwoData.startingDate)
+                          : null
+                      }
+                      onChange={handleStartingDateChange}
+                      inline
+                      minDate={new Date()}
+                    />
+                  </div>
+                )}
                 <div className={styles['two__block-hour']}>
                   <input
                     value={stepTwoData.startHour}
@@ -850,6 +858,9 @@ export const StepTwo = () => {
                 !stepTwoData.startMinute && (
                   <p className={styles.two__error}>{errors.startMinute}</p>
                 )}
+              {errors.dateOrder && (
+                <p className={styles.two__error}>{errors.dateOrder}</p>
+              )}
               <div className={styles['two__block-calendar']}>
                 <button
                   type="button"
@@ -867,25 +878,25 @@ export const StepTwo = () => {
                     readOnly
                     value={stepTwoData.formattedEndingDate || ''}
                   />
-                  {showDatePickerEnd && (
-                    <div className={styles.two__picker}>
-                      <DatePicker
-                        selected={
-                          stepTwoData.endingDate
-                            ? new Date(stepTwoData.endingDate)
-                            : null
-                        }
-                        onChange={handleEndingDateChange}
-                        inline
-                      />
-                    </div>
-                  )}
                   <img
                     src={calendar}
                     alt="calendar"
                     className={styles['two__calendar-img']}
                   />
                 </button>
+                {showDatePickerEnd && (
+                  <div className={styles.two__picker}>
+                    <DatePicker
+                      selected={
+                        stepTwoData.endingDate
+                          ? new Date(stepTwoData.endingDate)
+                          : null
+                      }
+                      onChange={handleEndingDateChange}
+                      inline
+                    />
+                  </div>
+                )}
                 <div className={styles['two__block-hour']}>
                   <input
                     value={stepTwoData.endHour}
@@ -937,6 +948,9 @@ export const StepTwo = () => {
                 !stepTwoData.endMinute && (
                   <p className={styles.two__error}>{errors.endMinute}</p>
                 )}
+              {errors.dateOrder && (
+                <p className={styles.two__error}>{errors.dateOrder}</p>
+              )}
               <input
                 type="text"
                 name="timeDemands"

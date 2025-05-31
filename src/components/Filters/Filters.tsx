@@ -380,17 +380,7 @@ export const Filters: React.FC<FiltersProps> = ({
                       selectedOptions.opportunityType === type,
                   })}
                 >
-                  <label className={styles['filters__dropdown-label']}>
-                    <input
-                      type="checkbox"
-                      checked={selectedOptions.opportunityType === type}
-                      onChange={() =>
-                        selectOption('opportunityType', type)
-                      }
-                      className={styles['filters__dropdown-checkbox']}
-                    />
-                    {type}
-                  </label>
+                  {type}
                 </li>
               ))}
             </ul>
@@ -445,17 +435,7 @@ export const Filters: React.FC<FiltersProps> = ({
                       selectedOptions.assistanceType === type,
                   })}
                 >
-                  <label className={styles['filters__dropdown-label']}>
-                    <input
-                      type="checkbox"
-                      checked={selectedOptions.assistanceType === type}
-                      onChange={() =>
-                        selectOption('assistanceType', type)
-                      }
-                      className={styles['filters__dropdown-checkbox']}
-                    />
-                    {type}
-                  </label>
+                  {type}
                 </li>
               ))}
             </ul>
@@ -512,15 +492,7 @@ export const Filters: React.FC<FiltersProps> = ({
                       selectedOptions.categoryId === id,
                   })}
                 >
-                  <label className={styles['filters__dropdown-label']}>
-                    <input
-                      type="checkbox"
-                      checked={selectedOptions.categoryId === id}
-                      onChange={() => selectOption('categoryId', id)}
-                      className={styles['filters__dropdown-checkbox']}
-                    />
-                    {name}
-                  </label>
+                  {name}
                 </li>
               ))}
             </ul>
@@ -572,15 +544,7 @@ export const Filters: React.FC<FiltersProps> = ({
                       selectedOptions.region === reg,
                   })}
                 >
-                  <label className={styles['filters__dropdown-label']}>
-                    <input
-                      type="checkbox"
-                      checked={selectedOptions.region === reg}
-                      onChange={() => selectOption('region', reg)}
-                      className={styles['filters__dropdown-checkbox']}
-                    />
-                    {reg}
-                  </label>
+                  {reg}
                 </li>
               ))}
             </ul>
@@ -633,17 +597,7 @@ export const Filters: React.FC<FiltersProps> = ({
                       selectedOptions.timeDemands === demands,
                   })}
                 >
-                  <label className={styles['filters__dropdown-label']}>
-                    <input
-                      type="checkbox"
-                      checked={selectedOptions.timeDemands === demands}
-                      onChange={() =>
-                        selectOption('timeDemands', demands)
-                      }
-                      className={styles['filters__dropdown-checkbox']}
-                    />
-                    {demands}
-                  </label>
+                  {demands}
                 </li>
               ))}
             </ul>

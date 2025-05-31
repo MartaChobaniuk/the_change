@@ -193,7 +193,7 @@ export const StepOne = () => {
           </div>
           <div className={styles['one__bllock-bottom']}>
             <h1 className={styles.one__title}>New Opportunity</h1>
-            <h3 className={styles.one__subtitle}>Step 1/3. Organiezer</h3>
+            <h3 className={styles.one__subtitle}>Step 1/3. Organizer</h3>
           </div>
         </div>
         <div className={styles['one__left-side']}>

@@ -754,6 +754,7 @@
 
   &__input {
     margin-bottom: 10px;
+    cursor: pointer;
 
     &:placeholder-shown {
       color: var.$dark-gray;

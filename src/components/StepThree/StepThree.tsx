@@ -75,8 +75,21 @@ export const StepThree = () => {
 
   const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
+  const cleanText = (text: string) =>
+    text
+      .replace(/â€™|â€˜|’|‘/g, "'")
+      .replace(/â€œ|â€|“|”/g, '"')
+      .replace(/â€“|–/g, '-')
+      .replace(/â€/g, '')
+      .trim();
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setStepThreeData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+
+    setStepThreeData(prev => ({
+      ...prev,
+      [name]: cleanText(value),
+    }));
   };
 
   const handleCoverImageChange = (

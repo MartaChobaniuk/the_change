@@ -30,40 +30,76 @@ export const DonationStepThree: React.FC<Props> = ({ onBack, onClose }) => {
     }
   }, []);
 
-  const formatCardNumber = (value: string) => {
-    return value
-      .replace(/\D/g, '')
-      .replace(/(.{4})/g, '$1 ')
-      .trim();
+  const formatCardNumber = (value: string): string => {
+    return (
+      value
+        .replace(/\s/g, '')
+        .match(/.{1,4}/g)
+        ?.join(' ') || ''
+    );
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formattedValue = formatCardNumber(e.target.value);
+    const value = e.target.value.replace(/\D/g, '').slice(0, 16); // лише цифри, максимум 16
 
-    setCardNumber(formattedValue);
+    setCardNumber(formatCardNumber(value));
+  };
+
+  const handleExpiryDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 4);
+
+    if (value.length <= 4) {
+      if (value.length <= 2) {
+        setExpiryDate(value);
+      } else {
+        setExpiryDate(`${value.slice(0, 2)} / ${value.slice(2)}`);
+      }
+    }
+  };
+
+  const handleCvvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCvv(e.target.value.replace(/\D/g, '').slice(0, 3));
   };
 
   const validateFields = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!cardNumber) {
-      newErrors.cardNumber = 'Card number is required';
-    }
+    const cardNumberValue = cardNumber.replace(/\s/g, '');
 
-    if (cardNumber.length < 16) {
-      newErrors.cardNumber_2 = 'Card number must be exactly 16 digits';
-    }
-
-    if (!cardNumber) {
+    if (!cardNumberValue) {
       newErrors.cardNumber = 'Card number is required';
+    } else if (!/^\d+$/.test(cardNumberValue)) {
+      newErrors.cardNumber = 'Card number must contain only digits';
+    } else if (cardNumberValue.length !== 16) {
+      newErrors.cardNumber = 'Card number must be exactly 16 digits';
     }
 
     if (!expiryDate) {
-      newErrors.expiryDate = 'Expiry card and CVV is required';
+      newErrors.expiryDate = 'Expiry date is required';
+    } else if (
+      !/^\d{2} \/ \d{2}$/.test(expiryDate) &&
+      !/^\d{2}\/\d{2}$/.test(expiryDate)
+    ) {
+      newErrors.expiryDate = 'Expiry date must be in MM / YY format';
+    } else if (expiryDate.length < 4) {
+      newErrors.expiryDate = 'Expiry date must be 4 characters long';
     }
 
     if (!cvv) {
       newErrors.cvv = 'CVV is required';
+    } else if (!/^\d+$/.test(cvv)) {
+      newErrors.cvv = 'CVV must contain only digits';
+    } else if (cvv.length !== 3) {
+      newErrors.cvv = 'CVV must be 3 digits';
+    }
+
+    if (!cardType) {
+      newErrors.cardType = 'Card type is required';
+    } else if (
+      cardType !== 'pm_card_visa' &&
+      cardType !== 'pm_card_mastercard'
+    ) {
+      newErrors.cardType = 'Invalid card type';
     }
 
     setErrors(newErrors);
@@ -87,6 +123,9 @@ export const DonationStepThree: React.FC<Props> = ({ onBack, onClose }) => {
       name: localStorage.getItem('name'),
       email: localStorage.getItem('email'),
       paymentMethodId: localStorage.getItem('paymentMethodId'),
+      cardNumber: cardNumber.replace(/\s/g, ''),
+      expiryDate: expiryDate,
+      cvv: cvv,
     };
 
     try {
@@ -172,24 +211,19 @@ export const DonationStepThree: React.FC<Props> = ({ onBack, onClose }) => {
           />
         </div>
         <div className={styles['donation-three__line']}></div>
-        {errors.cardNumber && !cardNumber && (
+        {errors.cardNumber && (
           <p className={styles['donation-three__error']}>{errors.cardNumber}</p>
-        )}
-        {errors.cardNumber_2 && cardNumber.length < 16 && (
-          <p className={styles['donation-three__error']}>
-            {errors.cardNumber_2}
-          </p>
         )}
         <div className={styles['donation-three__inputs-block']}>
           <input
             value={expiryDate}
-            onChange={e => setExpiryDate(e.target.value)}
+            onChange={handleExpiryDateChange}
             className={styles['donation-three__input--part']}
             placeholder="MM / YY"
           />
           <input
             value={cvv}
-            onChange={e => setCvv(e.target.value)}
+            onChange={handleCvvChange}
             className={styles['donation-three__input--part']}
             placeholder="CVV"
           />
@@ -199,7 +233,7 @@ export const DonationStepThree: React.FC<Props> = ({ onBack, onClose }) => {
           <div className={styles['donation-three__line-small']}></div>
         </div>
         <div className={styles['donation-three__errors']}>
-          {errors.expiryDate && !expiryDate && !cvv && (
+          {errors.expiryDate && (
             <div
               className={cn(styles['donation-three__error-block'], {
                 [styles['donation-three__error-block--visible']]:
@@ -211,7 +245,7 @@ export const DonationStepThree: React.FC<Props> = ({ onBack, onClose }) => {
               </p>
             </div>
           )}
-          {errors.cvv && !cvv && expiryDate && (
+          {errors.cvv && (
             <div
               className={cn(styles['donation-three__error-block'], {
                 [styles['donation-three__error-block--visible']]: errors.cvv,
